@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace ParksAndDeath.Models
 {
-    public partial class ParksVisited
+    public partial class UserParks
     {
-        public int VisitedParkId { get; set; }
+        public int UsersParkIds { get; set; }
         public string ParkName { get; set; }
         public string Address { get; set; }
         public string State { get; set; }
         public string ParkCode { get; set; }
+        public decimal? Cost { get; set; }
+        public bool? ParkVisited { get; set; }
         public string CurrentUserId { get; set; }
 
         public virtual AspNetUsers CurrentUser { get; set; }

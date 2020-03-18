@@ -11,9 +11,8 @@ namespace ParksAndDeath.Models
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
-            ParksToVisit = new HashSet<ParksToVisit>();
-            ParksVisited = new HashSet<ParksVisited>();
             UserInfo = new HashSet<UserInfo>();
+            UserParks = new HashSet<UserParks>();
         }
 
         public string Id { get; set; }
@@ -36,8 +35,7 @@ namespace ParksAndDeath.Models
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual ICollection<ParksToVisit> ParksToVisit { get; set; }
-        public virtual ICollection<ParksVisited> ParksVisited { get; set; }
         public virtual ICollection<UserInfo> UserInfo { get; set; }
+        public virtual ICollection<UserParks> UserParks { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace ParksAndDeath.Controllers
         }
 
 
-        public IActionResult parksVisited()
+        public IActionResult ParksVisited()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<ParksVisited> visitedParks = _context.ParksVisited.Where(x => x.CurrentUserId == id).ToList();
+            List<UserParks> visitedParks = _context.UserParks.Where(x => x.CurrentUserId == id).ToList();
             return View(visitedParks);
         }
 
@@ -34,7 +34,7 @@ namespace ParksAndDeath.Controllers
         public IActionResult DisplayBucketList()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return View(_context.ParksToVisit.Where(x => x.CurrentUserId == id).ToList());
+            return View(_context.UserParks.Where(x => x.CurrentUserId == id).ToList());
         }
     }
 }
