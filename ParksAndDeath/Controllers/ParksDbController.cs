@@ -27,7 +27,7 @@ namespace ParksAndDeath.Controllers
         //diplays a list of all the parks
         public IActionResult Index()
         {
-
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return View(_context.Parks.ToList());
         }
 
