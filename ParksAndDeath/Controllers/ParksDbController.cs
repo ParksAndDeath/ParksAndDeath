@@ -22,8 +22,11 @@ namespace ParksAndDeath.Controllers
             List<ParksVisited> visitedParks = _context.ParksVisited.Where(x => x.CurrentUserId == id).ToList();
             return View(visitedParks);
         }
+
+        //diplays a list of all the parks
         public IActionResult Index()
         {
+
             return View(_context.Parks.ToList());
         }
 
