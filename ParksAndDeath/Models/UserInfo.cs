@@ -5,12 +5,6 @@ namespace ParksAndDeath.Models
 {
     public partial class UserInfo
     {
-        public UserInfo()
-        {
-            ParksToVisit = new HashSet<ParksToVisit>();
-            ParksVisited = new HashSet<ParksVisited>();
-        }
-
         public int UserId { get; set; }
         public string OwnerId { get; set; }
         public string Name { get; set; }
@@ -20,7 +14,5 @@ namespace ParksAndDeath.Models
         public bool? Drinker { get; set; }
 
         public virtual AspNetUsers Owner { get; set; }
-        public virtual ICollection<ParksToVisit> ParksToVisit { get; set; }
-        public virtual ICollection<ParksVisited> ParksVisited { get; set; }
     }
 }
