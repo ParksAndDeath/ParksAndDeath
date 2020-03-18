@@ -3,5 +3,28 @@
     ViewData["Title"] = "parksVisited";
 }
 
+@model List<ParksVisited>
 <h1>parksVisited</h1>
 
+<table>
+    <tr>
+        <th>Park Name</th>
+        <th>Park Address</th>
+        <th>Park State</th>
+    </tr>
+    @foreach (ParksVisited visited in Model)
+    {
+        <tr>
+        <td>@visited.ParkName</td>
+        <td>@visited.Address</td>
+        <td>@visited.State</td>
+        <td>
+            <form action="../ParksDbController/DeleteFromParksVisited" method="post">
+                <input type="hidden" name="itemId" value="@visited.VisitedParkId" />
+                <input type="submit" value="DELETE FROM VISITED HISTORY" />
+                
+            </form>
+        </td>
+        </tr>
+    }
+</table>

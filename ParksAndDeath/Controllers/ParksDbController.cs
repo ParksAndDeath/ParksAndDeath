@@ -16,6 +16,7 @@ namespace ParksAndDeath.Controllers
             _context = context;
         }
 
+
         public IActionResult parksVisited()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
