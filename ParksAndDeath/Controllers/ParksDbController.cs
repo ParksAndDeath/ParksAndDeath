@@ -15,8 +15,19 @@ namespace ParksAndDeath.Controllers
         {
             _context = context;
         }
+
+
+        public IActionResult parksVisited()
+        {
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            List<ParksVisited> visitedParks = _context.ParksVisited.Where(x => x.CurrentUserId == id).ToList();
+            return View(visitedParks);
+        }
+
+        //diplays a list of all the parks
         public IActionResult Index()
         {
+
             return View(_context.Parks.ToList());
         }
         //creating an Iaction to display the users bucket list.

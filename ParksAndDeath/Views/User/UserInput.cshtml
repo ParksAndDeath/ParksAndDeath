@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "UserInput";
+}
+
+@model UserInfo
+<h1>Life Expectancy</h1>
+
+<form action="../User/Index" method="post">
+    <input type="text" name="Name" placeholder="Your Name" />
+    <input type="date" name="Dob" value="Birthday MM/DD/YYYY" />
+    Male: <input type="radio" name="gender" value="male" />
+    Female: <input type="radio" name="gender" value="female" />
+    Smoker: <input type="radio" name="Smoker" value="true" />
+    Non-smoker: <input type="radio" name="Smoker" value="false" />
+    Drinker: <input type="radio" name="Drinker" value="true" />
+    Non-drinker: <input type="radio" name="Drinker" value="false" />
+    <input type="submit" name="name" value="Add User" />
+</form>
