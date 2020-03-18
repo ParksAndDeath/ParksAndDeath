@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Life Expectancy Options</h1>
+
+<form action="../LifeExpAPI/LifeExpectancyCalc" method="post">
+    Select Country: @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),
+"Country", new { @class = "form-control" })<br />
+    Select your Sex: @Html.DropDownList("Sex", new SelectList(Enum.GetValues(typeof(Sex))),
+"Sex", new { @class = "form-control" })<br />
+    Enter in your age: <input type="number" name="Age" value="" /><br />
+    <input type="hidden" name="year" value="2016" />
+    <input type="submit" name="name" value="Submit" />
+
+</form>
+
