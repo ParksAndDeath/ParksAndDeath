@@ -7,8 +7,8 @@ namespace ParksAndDeath.Models
 {
     public partial class ParksAndDeathDbContext : DbContext
     {
-
         public IConfiguration Configuration { get; }
+
         public ParksAndDeathDbContext()
         {
         }

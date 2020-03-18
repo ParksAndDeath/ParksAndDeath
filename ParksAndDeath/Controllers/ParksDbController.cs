@@ -17,7 +17,7 @@ namespace ParksAndDeath.Controllers
         }
 
 
-        public IActionResult parksVisited()
+        public IActionResult ParksVisited()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<UserParks> visitedParks = _context.UserParks.Where(x => x.CurrentUserId == id).ToList();
