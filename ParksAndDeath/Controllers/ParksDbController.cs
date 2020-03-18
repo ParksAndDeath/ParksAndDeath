@@ -30,6 +30,11 @@ namespace ParksAndDeath.Controllers
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return View(_context.Parks.ToList());
         }
-
+        //creating an Iaction to display the users bucket list.
+        public IActionResult DisplayBucketList()
+        {
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return View(_context.ParksToVisit.Where(x => x.CurrentUserId == id).ToList());
+        }
     }
 }

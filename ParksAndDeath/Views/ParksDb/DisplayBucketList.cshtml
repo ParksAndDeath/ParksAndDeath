@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "DisplayBucketList";
+}
+@model List<ParksToVisit>
+
+<h1>DisplayBucketList</h1>
+
+<table>
+    <tr>
+        <th>Park Name</th>
+        <th>Address</th>
+        <th>State</th>
+        <th>ParkCode</th>
+        <th>Cost</th>
+    </tr>
+    @foreach (var parks in Model)
+    {
+<tr>
+    <td>@parks.ParkName</td>
+    <td>@parks.Address</td>
+    <td>@parks.State</td>
+    <td>@parks.ParkCode</td>
+    <td>@parks.Cost</td>
+
+    <td>
+        <a class="btn" href="../ParksDbController/MarkParkVisited?id=@parks.DesirdParkId"></a>
+    </td>
+</tr>
+    }
+</table>
