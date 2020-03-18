@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "DisplayBucketList";
 }
-@model List<ParksToVisit>
+@model List<UserParks>
 
 <h1>DisplayBucketList</h1>
 
@@ -24,7 +24,7 @@
     <td>@parks.Cost</td>
 
     <td>
-        <a class="btn" href="../ParksDbController/MarkParkVisited?id=@parks.DesirdParkId"></a>
+        <a class="btn" href="../ParksDbController/MarkParkVisited?id=@parks.UsersParkIds"></a>
     </td>
 </tr>
     }
