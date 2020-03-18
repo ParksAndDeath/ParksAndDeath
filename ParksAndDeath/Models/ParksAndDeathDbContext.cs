@@ -7,11 +7,10 @@ namespace ParksAndDeath.Models
 {
     public partial class ParksAndDeathDbContext : DbContext
     {
+        public IConfiguration Configuration { get; }
         public ParksAndDeathDbContext()
         {
         }
-
-        public IConfiguration Configuration { get; }
 
         public ParksAndDeathDbContext(DbContextOptions<ParksAndDeathDbContext> options)
             : base(options)
@@ -26,9 +25,8 @@ namespace ParksAndDeath.Models
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Parks> Parks { get; set; }
-        public virtual DbSet<ParksToVisit> ParksToVisit { get; set; }
-        public virtual DbSet<ParksVisited> ParksVisited { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
+        public virtual DbSet<UserParks> UserParks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -160,12 +158,36 @@ namespace ParksAndDeath.Models
                     .HasMaxLength(500);
             });
 
-            modelBuilder.Entity<ParksToVisit>(entity =>
+            modelBuilder.Entity<UserInfo>(entity =>
             {
-                entity.HasKey(e => e.DesirdParkId)
-                    .HasName("PK__ParksToV__65E2D8F771259530");
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__UserInfo__1788CC4C6E9367BC");
 
-                entity.Property(e => e.DesirdParkId).HasColumnName("desirdParkID");
+                entity.Property(e => e.Dob)
+                    .HasColumnName("DOB")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Gender).HasMaxLength(10);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.OwnerId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.Owner)
+                    .WithMany(p => p.UserInfo)
+                    .HasForeignKey(d => d.OwnerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserInfo__OwnerI__6383C8BA");
+            });
+
+            modelBuilder.Entity<UserParks>(entity =>
+            {
+                entity.HasKey(e => e.UsersParkIds)
+                    .HasName("PK__UserPark__D0A542C51255D79B");
+
+                entity.Property(e => e.UsersParkIds).HasColumnName("usersParkIDs");
 
                 entity.Property(e => e.Address)
                     .HasColumnName("address")
@@ -190,43 +212,7 @@ namespace ParksAndDeath.Models
                     .HasColumnName("parkName")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.State)
-                    .HasColumnName("state")
-                    .HasMaxLength(2)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.CurrentUser)
-                    .WithMany(p => p.ParksToVisit)
-                    .HasForeignKey(d => d.CurrentUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ParksToVi__curre__7A672E12");
-            });
-
-            modelBuilder.Entity<ParksVisited>(entity =>
-            {
-                entity.HasKey(e => e.VisitedParkId)
-                    .HasName("PK__ParksVis__6C52C9B4186A0FE0");
-
-                entity.Property(e => e.VisitedParkId).HasColumnName("visitedParkID");
-
-                entity.Property(e => e.Address)
-                    .HasColumnName("address")
-                    .HasMaxLength(150);
-
-                entity.Property(e => e.CurrentUserId)
-                    .IsRequired()
-                    .HasColumnName("currentUserID")
-                    .HasMaxLength(450);
-
-                entity.Property(e => e.ParkCode)
-                    .IsRequired()
-                    .HasColumnName("parkCode")
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.ParkName)
-                    .IsRequired()
-                    .HasColumnName("parkName")
-                    .HasMaxLength(50);
+                entity.Property(e => e.ParkVisited).HasColumnName("parkVisited");
 
                 entity.Property(e => e.State)
                     .HasColumnName("state")
@@ -234,34 +220,10 @@ namespace ParksAndDeath.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.CurrentUser)
-                    .WithMany(p => p.ParksVisited)
+                    .WithMany(p => p.UserParks)
                     .HasForeignKey(d => d.CurrentUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ParksVisi__curre__778AC167");
-            });
-
-            modelBuilder.Entity<UserInfo>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__UserInfo__1788CC4C6E9367BC");
-
-                entity.Property(e => e.Dob)
-                    .HasColumnName("DOB")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.Gender).HasMaxLength(10);
-
-                entity.Property(e => e.Name).HasMaxLength(100);
-
-                entity.Property(e => e.OwnerId)
-                    .IsRequired()
-                    .HasMaxLength(450);
-
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.UserInfo)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserInfo__OwnerI__6383C8BA");
+                    .HasConstraintName("FK__UserParks__curre__7D439ABD");
             });
 
             OnModelCreatingPartial(modelBuilder);
