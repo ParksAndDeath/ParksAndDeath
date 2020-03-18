@@ -17,7 +17,7 @@ namespace ParksAndDeath.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_context.Parks.ToList());
         }
         //creating an Iaction to display the users bucket list.
         public IActionResult DisplayBucketList()

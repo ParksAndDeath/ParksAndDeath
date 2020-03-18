@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model List<Parks>
+
+<h1>Add a Park to Your Bucket List</h1>
+
+<table class="table">
+    <tr>
+        <th>Park Name</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Web Address</th>
+    </tr>
+    @foreach (Parks park in Model)
+    {
+        <tr>
+            <td>@park.FullName</td>
+            <td>@park.City</td>
+            <td>@park.States</td>
+            <td>@park.Latitude</td>
+            <td>@park.Longitude</td>
+            <td>@park.Url</td>
+            <td><a href="../Parks/AddPark?id=@park.ParkCode">Add Park to BucketList</a></td>
+        </tr>
+       
+    }
+</table>
+
