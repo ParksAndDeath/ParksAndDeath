@@ -1,14 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace ParksAndDeath.Models
 {
-
     public partial class ParksAndDeathDbContext : DbContext
     {
-        public IConfiguration Configuration { get; }
         public ParksAndDeathDbContext()
         {
         }
@@ -35,7 +32,7 @@ namespace ParksAndDeath.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                optionsBuilder.UseSqlServer("Server=tcp:ParksAndDeath.database.windows.net,1433;Database=ParksAndDeathDb;User ID=parksanddeath;Password=Bears1234!;Encrypt=true;Connection Timeout=30");
             }
         }
 
@@ -162,34 +159,36 @@ namespace ParksAndDeath.Models
 
             modelBuilder.Entity<ParksToVisit>(entity =>
             {
-                entity.HasKey(e => e.DesiredParkId)
-                    .HasName("PK__ParksToV__801589840488142C");
+                entity.HasKey(e => e.DesirdParkId)
+                    .HasName("PK__ParksToV__65E2D8F771259530");
 
-                entity.Property(e => e.DesiredParkId).HasColumnName("desiredParkID");
+                entity.Property(e => e.DesirdParkId).HasColumnName("desirdParkID");
 
-                entity.Property(e => e.AAddress)
-                    .HasColumnName("a_address")
-                    .HasMaxLength(1);
+                entity.Property(e => e.Address)
+                    .HasColumnName("address")
+                    .HasMaxLength(150);
 
                 entity.Property(e => e.Cost)
                     .HasColumnName("cost")
-                    .HasColumnType("decimal(3, 2)");
+                    .HasColumnType("decimal(2, 2)");
 
-                entity.Property(e => e.CurrentUserId).HasColumnName("currentUserID");
+                entity.Property(e => e.CurrentUserId)
+                    .IsRequired()
+                    .HasColumnName("currentUserID")
+                    .HasMaxLength(450);
 
                 entity.Property(e => e.ParkCode)
                     .IsRequired()
                     .HasColumnName("parkCode")
-                    .HasMaxLength(1);
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.ParkName)
                     .IsRequired()
                     .HasColumnName("parkName")
-                    .HasMaxLength(1);
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.SState)
-                    .IsRequired()
-                    .HasColumnName("s_state")
+                entity.Property(e => e.State)
+                    .HasColumnName("state")
                     .HasMaxLength(2)
                     .IsUnicode(false);
 
@@ -197,35 +196,37 @@ namespace ParksAndDeath.Models
                     .WithMany(p => p.ParksToVisit)
                     .HasForeignKey(d => d.CurrentUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ParksToVi__curre__6C190EBB");
+                    .HasConstraintName("FK__ParksToVi__curre__7A672E12");
             });
 
             modelBuilder.Entity<ParksVisited>(entity =>
             {
                 entity.HasKey(e => e.VisitedParkId)
-                    .HasName("PK__ParksVis__6C52C9B4200A3D4F");
+                    .HasName("PK__ParksVis__6C52C9B4186A0FE0");
 
                 entity.Property(e => e.VisitedParkId).HasColumnName("visitedParkID");
 
-                entity.Property(e => e.AAddress)
-                    .HasColumnName("a_address")
-                    .HasMaxLength(1);
+                entity.Property(e => e.Address)
+                    .HasColumnName("address")
+                    .HasMaxLength(150);
 
-                entity.Property(e => e.CurrentUserId).HasColumnName("currentUserID");
+                entity.Property(e => e.CurrentUserId)
+                    .IsRequired()
+                    .HasColumnName("currentUserID")
+                    .HasMaxLength(450);
 
                 entity.Property(e => e.ParkCode)
                     .IsRequired()
                     .HasColumnName("parkCode")
-                    .HasMaxLength(1);
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.ParkName)
                     .IsRequired()
                     .HasColumnName("parkName")
-                    .HasMaxLength(1);
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.SState)
-                    .IsRequired()
-                    .HasColumnName("s_state")
+                entity.Property(e => e.State)
+                    .HasColumnName("state")
                     .HasMaxLength(2)
                     .IsUnicode(false);
 
@@ -233,7 +234,7 @@ namespace ParksAndDeath.Models
                     .WithMany(p => p.ParksVisited)
                     .HasForeignKey(d => d.CurrentUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ParksVisi__curre__6EF57B66");
+                    .HasConstraintName("FK__ParksVisi__curre__778AC167");
             });
 
             modelBuilder.Entity<UserInfo>(entity =>

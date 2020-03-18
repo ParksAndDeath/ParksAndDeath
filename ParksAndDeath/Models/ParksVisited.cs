@@ -7,11 +7,11 @@ namespace ParksAndDeath.Models
     {
         public int VisitedParkId { get; set; }
         public string ParkName { get; set; }
-        public string AAddress { get; set; }
-        public string SState { get; set; }
+        public string Address { get; set; }
+        public string State { get; set; }
         public string ParkCode { get; set; }
-        public int CurrentUserId { get; set; }
+        public string CurrentUserId { get; set; }
 
-        public virtual UserInfo CurrentUser { get; set; }
+        public virtual AspNetUsers CurrentUser { get; set; }
     }
 }
