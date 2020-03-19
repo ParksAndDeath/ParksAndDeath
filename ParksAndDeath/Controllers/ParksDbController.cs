@@ -18,11 +18,18 @@ namespace ParksAndDeath.Controllers
             _context = context;
         }
 
-
         public IActionResult ParksVisited()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<UserParks> visitedParks = _context.UserParks.Where(x => x.CurrentUserId == id).ToList();
+            List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == id).ToList();
+            List<UserParks> visitedParks = new List<UserParks>();
+            foreach(UserParks park in userParks)
+            {
+                if(park.ParkVisited == true)
+                {
+                    visitedParks.Add(park);
+                }
+            }
             return View(visitedParks);
         }
 
@@ -30,12 +37,12 @@ namespace ParksAndDeath.Controllers
         public IActionResult Index()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<Parks> fullList = _context.Parks.ToList();
-            //List<string> inbl = _context.AsEnumerable().Select(x => x.Field<string>();
-            //List<string> codes = new List<string>().(Select<_context.UserParks>);
-            //List<Parks> parksAvailable = new List<Parks>();
-            //if the park isn't included in the bucketlist it will display the whole list from the database
-            /*if (inbl.Count == 0)
+            List<Parks> fullList = _context.Parks.OrderBy(x => x.ParkCode).ToList();
+            List<string> parcodes = _context.UserParks.Select(x => x.ParkCode).ToList();
+          
+            List<Parks> parksAvailable = new List<Parks>();
+            ////if the park isn't included in the bucketlist it will display the whole list from the database
+            if (parcodes.Count == 0)
             {
                 parksAvailable = fullList;
                 return View(parksAvailable);
@@ -45,30 +52,19 @@ namespace ParksAndDeath.Controllers
             {
                 for (int i = 0; i < fullList.Count; i++)
                 {
-                    for (int x = 0; x < inbl.Count; x++)
+                    if (!(parcodes.Contains(fullList[i].ParkCode)))
                     {
-                        //if the bucketlist listed park code doesnt match the code of the current full list item add to parks available list
-                        if (fullList[i].ParkCode == inbl[x].ParkCode)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            parksAvailable.Add(fullList[i]);
-                            break;
-                        }
+                        parksAvailable.Add(fullList[i]);
                     }
                 }
-                return View(parksAvailable);*/
-            //}
-            return View(fullList);
+                return View(parksAvailable);
+            }
         }
         //creating an Iaction to display the users bucket list.
         public IActionResult DisplayBucketList()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return View(_context.UserParks.Where(x => x.CurrentUserId == id).ToList());
-            
         }
 
         public IActionResult AddParkToBuckList(string name, string city, string state, string latitude, string longitude, string url, string parkcode)
@@ -90,7 +86,7 @@ namespace ParksAndDeath.Controllers
                 _context.SaveChanges();
 
 
-                return RedirectToAction("DisplayBucketList");
+                return RedirectToAction("Index");
             }
 
             return RedirectToAction("Index");
