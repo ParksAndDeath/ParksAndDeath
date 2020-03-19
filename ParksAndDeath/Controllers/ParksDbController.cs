@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParksAndDeath.Models;
 
 namespace ParksAndDeath.Controllers
 {
+    [Authorize]
     public class ParksDbController : Controller
     {
         private readonly ParksAndDeathDbContext _context;
