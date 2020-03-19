@@ -8,7 +8,6 @@ namespace ParksAndDeath.Models
     public partial class ParksAndDeathDbContext : DbContext
     {
         public IConfiguration Configuration { get; }
-
         public ParksAndDeathDbContext()
         {
         }
@@ -186,13 +185,13 @@ namespace ParksAndDeath.Models
             modelBuilder.Entity<UserParks>(entity =>
             {
                 entity.HasKey(e => e.UsersParkIds)
-                    .HasName("PK__UserPark__D0A542C51255D79B");
+                    .HasName("PK__UserPark__D0A542C52868C6A5");
 
                 entity.Property(e => e.UsersParkIds).HasColumnName("usersParkIDs");
 
-                entity.Property(e => e.Address)
-                    .HasColumnName("address")
-                    .HasMaxLength(150);
+                entity.Property(e => e.City)
+                    .HasColumnName("city")
+                    .HasMaxLength(40);
 
                 entity.Property(e => e.Cost)
                     .HasColumnName("cost")
@@ -202,6 +201,14 @@ namespace ParksAndDeath.Models
                     .IsRequired()
                     .HasColumnName("currentUserID")
                     .HasMaxLength(450);
+
+                entity.Property(e => e.Latitude)
+                    .HasColumnName("latitude")
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.Longitude)
+                    .HasColumnName("longitude")
+                    .HasMaxLength(15);
 
                 entity.Property(e => e.ParkCode)
                     .IsRequired()
@@ -217,14 +224,18 @@ namespace ParksAndDeath.Models
 
                 entity.Property(e => e.State)
                     .HasColumnName("state")
-                    .HasMaxLength(2)
+                    .HasMaxLength(40)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Url)
+                    .HasColumnName("url")
+                    .HasMaxLength(100);
 
                 entity.HasOne(d => d.CurrentUser)
                     .WithMany(p => p.UserParks)
                     .HasForeignKey(d => d.CurrentUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserParks__curre__7D439ABD");
+                    .HasConstraintName("FK__UserParks__curre__00200768");
             });
 
             OnModelCreatingPartial(modelBuilder);

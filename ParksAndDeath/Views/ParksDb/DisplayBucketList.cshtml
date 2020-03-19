@@ -9,19 +9,17 @@
 <table>
     <tr>
         <th>Park Name</th>
-        <th>Address</th>
+        <th>City</th>
         <th>State</th>
-        <th>ParkCode</th>
-        <th>Cost</th>
+        
     </tr>
     @foreach (var parks in Model)
     {
 <tr>
     <td>@parks.ParkName</td>
-    <td>@parks.Address</td>
+    <td>@parks.City</td>
     <td>@parks.State</td>
-    <td>@parks.ParkCode</td>
-    <td>@parks.Cost</td>
+    
 
     <td>
         <a class="btn" href="../ParksDbController/MarkParkVisited?id=@parks.UsersParkIds"></a>
