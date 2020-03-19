@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParksAndDeath.Models;
 
 namespace ParksAndDeath.Controllers
 {
+    [Authorize]
     public class LifeExpAPIController : Controller
     {
         private readonly ParksAndDeathDbContext _context;
@@ -94,7 +96,7 @@ namespace ParksAndDeath.Controllers
             double timeLeft = life.fact[0].value.numeric;
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             int blCount = _context.UserParks.Where(x => x.CurrentUserId == id).ToList().Count;
-            double lifeCalc = (blCount / timeLeft);
+            double lifeCalc = Math.Ceiling((blCount / timeLeft));
             return View("LifeExpectancyCalc", lifeCalc);
         }
 
