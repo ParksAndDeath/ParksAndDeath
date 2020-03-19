@@ -185,7 +185,7 @@ namespace ParksAndDeath.Models
             modelBuilder.Entity<UserParks>(entity =>
             {
                 entity.HasKey(e => e.UsersParkIds)
-                    .HasName("PK__UserPark__D0A542C52868C6A5");
+                    .HasName("PK__UserPark__D0A542C543D61E02");
 
                 entity.Property(e => e.UsersParkIds).HasColumnName("usersParkIDs");
 
@@ -204,11 +204,11 @@ namespace ParksAndDeath.Models
 
                 entity.Property(e => e.Latitude)
                     .HasColumnName("latitude")
-                    .HasMaxLength(15);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Longitude)
                     .HasColumnName("longitude")
-                    .HasMaxLength(15);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ParkCode)
                     .IsRequired()
@@ -235,7 +235,7 @@ namespace ParksAndDeath.Models
                     .WithMany(p => p.UserParks)
                     .HasForeignKey(d => d.CurrentUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserParks__curre__00200768");
+                    .HasConstraintName("FK__UserParks__curre__02FC7413");
             });
 
             OnModelCreatingPartial(modelBuilder);
