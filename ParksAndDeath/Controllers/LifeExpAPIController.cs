@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ParksAndDeath.Models;
@@ -10,6 +11,11 @@ namespace ParksAndDeath.Controllers
 {
     public class LifeExpAPIController : Controller
     {
+        private readonly ParksAndDeathDbContext _context;
+        public LifeExpAPIController(ParksAndDeathDbContext context)
+        {
+            _context = context;
+        }
         public async Task<IActionResult> LifeExpectancyCalc(string Country, int Age, string Sex, int year)
         {
             string ageGroup = "";
@@ -85,7 +91,11 @@ namespace ParksAndDeath.Controllers
             client.BaseAddress = new Uri("http://apps.who.int/gho/athena/api/GHO/");
             var response = await client.GetAsync($"LIFE_0000000035.json?filter=COUNTRY:{Country};Agegroup:{ageGroup};SEX:{Sex};YEAR:{year}");
             var life = await response.Content.ReadAsAsync<LifeRootobject>();
-            return View("ParkPlanFeasibilitySummary", life);
+            double timeLeft = life.fact[0].value.numeric;
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int blCount = _context.UserParks.Where(x => x.CurrentUserId == id).ToList().Count;
+            double lifeCalc = (blCount / timeLeft);
+            return View("LifeExpectancyCalc", lifeCalc);
         }
 
         //public IActionResult ParkPlanFeasibilitySummary(LifeRootobject lifeExpectancy)
