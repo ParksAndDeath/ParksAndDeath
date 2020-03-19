@@ -3,17 +3,19 @@
     ViewData["Title"] = "UserInput";
 }
 
-@model UserInfo
+@model string
 <h1>Life Expectancy</h1>
 
-<form action="../User/Index" method="post">
-    <input type="text" name="Name" placeholder="Your Name" />
-    <input type="date" name="Dob" value="Birthday MM/DD/YYYY" />
-    Male: <input type="radio" name="gender" value="male" />
-    Female: <input type="radio" name="gender" value="female" />
-    Smoker: <input type="radio" name="Smoker" value="true" />
-    Non-smoker: <input type="radio" name="Smoker" value="false" />
-    Drinker: <input type="radio" name="Drinker" value="true" />
-    Non-drinker: <input type="radio" name="Drinker" value="false" />
-    <input type="submit" name="name" value="Add User" />
-</form>
+<p>@Model</p>
+@*<form action="../User/Index" method="post">
+    <input type="text" name="Name" placeholder=@Model.Name /><br />
+    @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),
+"Country", new { @class = "form-control" })<br />
+    @Html.DropDownList("Select Gender", new SelectList(Enum.GetValues(typeof(Sex))),
+"Select Gender", new { @class = "form-control" })<br />
+    Smoker: <input type="radio" name="Smoker" value="true" /><br />
+    <input type="hidden" name="Smoker" value="false" />
+    Drinker: <input type="radio" name="Drinker" value="true" /><br />
+    <input type="hidden" name="Drinker" value="false" /><br />
+    <input type="submit" name="name" value="Update User Information" />
+</form>*@

@@ -85,10 +85,7 @@ namespace ParksAndDeath.Controllers
             {
                 ageGroup = "AGE75-79";
             }
-            if (Age >= 55 && Age <= 59)
-            {
-                ageGroup = "AGE55-59";
-            }
+            
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://apps.who.int/gho/athena/api/GHO/");
             var response = await client.GetAsync($"LIFE_0000000035.json?filter=COUNTRY:{Country};Agegroup:{ageGroup};SEX:{Sex};YEAR:{year}");
@@ -96,6 +93,8 @@ namespace ParksAndDeath.Controllers
             double timeLeft = life.fact[0].value.numeric;
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             int blCount = _context.UserParks.Where(x => x.CurrentUserId == id).ToList().Count;
+            ViewBag.blCount = blCount;
+            ViewBag.timeLeft = timeLeft;
             double lifeCalc = Math.Ceiling((blCount / timeLeft));
             return View("LifeExpectancyCalc", lifeCalc);
         }
