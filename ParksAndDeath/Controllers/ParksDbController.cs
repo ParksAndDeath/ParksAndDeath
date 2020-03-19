@@ -29,10 +29,11 @@ namespace ParksAndDeath.Controllers
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<Parks> fullList = _context.Parks.ToList();
-            List<UserParks> inbl = _context.UserParks.ToList();
-            List<Parks> parksAvailable = new List<Parks>();
+            //List<string> inbl = _context.AsEnumerable().Select(x => x.Field<string>();
+            //List<string> codes = new List<string>().(Select<_context.UserParks>);
+            //List<Parks> parksAvailable = new List<Parks>();
             //if the park isn't included in the bucketlist it will display the whole list from the database
-            if (inbl.Count == 0)
+            /*if (inbl.Count == 0)
             {
                 parksAvailable = fullList;
                 return View(parksAvailable);
@@ -40,20 +41,25 @@ namespace ParksAndDeath.Controllers
             }
             else //this will loop through the full list and check if each item is in the bucketlist
             {
-                for (int i = 0; i < inbl.Count; i++)
+                for (int i = 0; i < fullList.Count; i++)
                 {
-                    for (int x = 0; x < fullList.Count; x++)
+                    for (int x = 0; x < inbl.Count; x++)
                     {
                         //if the bucketlist listed park code doesnt match the code of the current full list item add to parks available list
-                        if (!(fullList[x].ParkCode == inbl[i].ParkCode))
+                        if (fullList[i].ParkCode == inbl[x].ParkCode)
+                        {
+                            break;
+                        }
+                        else
                         {
                             parksAvailable.Add(fullList[i]);
-                            x++;
+                            break;
                         }
                     }
                 }
-                return View(parksAvailable);
-            }
+                return View(parksAvailable);*/
+            //}
+            return View(fullList);
         }
         //creating an Iaction to display the users bucket list.
         public IActionResult DisplayBucketList()
