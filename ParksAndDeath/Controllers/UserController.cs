@@ -22,7 +22,7 @@ namespace ParksAndDeath.Controllers
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var userInfo = _context.UserInfo.Where(x => x.OwnerId == id);
-            string testType = userInfo.GetType().ToString();
+            var testType = userInfo.GetType().ToString();
             return View(testType);
         }
     }
