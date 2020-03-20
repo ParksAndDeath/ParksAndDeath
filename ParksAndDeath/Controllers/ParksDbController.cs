@@ -37,16 +37,16 @@ namespace ParksAndDeath.Controllers
         public IActionResult ParksVisited()
         {
             string Userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == Userid).ToList();
-            List<UserParks> visitedParks = new List<UserParks>();
-            foreach (UserParks bucketListPark in userParks)
-            {
-                if(bucketListPark.ParkVisited == true)
-                {
-                    visitedParks.Add(bucketListPark);
-                }
-            }
-            return View(visitedParks);
+            List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == Userid).Where(y => y.ParkVisited == true).ToList();
+            //List<UserParks> visitedParks = new List<UserParks>();
+            //foreach (UserParks bucketListPark in userParks)
+            //{
+            //    if(bucketListPark.ParkVisited == true)
+            //    {
+            //        visitedParks.Add(bucketListPark);
+            //    }
+            //}
+            return View(userParks);
         }
 
 
@@ -81,7 +81,7 @@ namespace ParksAndDeath.Controllers
         public IActionResult DisplayBucketList()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return View(_context.UserParks.Where(x => x.CurrentUserId == id).ToList());
+            return View(_context.UserParks.Where(x => x.CurrentUserId == id).Where(y => y.ParkVisited == false).ToList());
         }
 
         public IActionResult AddParkToBuckList(string name, string city, string state, string latitude, string longitude, string url, string parkcode)
@@ -94,6 +94,7 @@ namespace ParksAndDeath.Controllers
             park.Latitude = latitude;
             park.Longitude = longitude;
             park.Url = url;
+            park.ParkVisited = false;
             park.ParkCode = parkcode;
             park.CurrentUserId = id;
 

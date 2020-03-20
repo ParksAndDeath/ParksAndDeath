@@ -7,8 +7,7 @@ namespace ParksAndDeath.Models
 {
     public partial class ParksAndDeathDbContext : DbContext
     {
-        public IConfiguration Configuration { get;}
-
+        public IConfiguration Configuration { get; }
         public ParksAndDeathDbContext()
         {
         }
@@ -28,13 +27,14 @@ namespace ParksAndDeath.Models
         public virtual DbSet<Parks> Parks { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public virtual DbSet<UserParks> UserParks { get; set; }
+        public virtual DbSet<UserPreferences> UserPreferences { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:ParksAndDeath.database.windows.net,1433;Database=ParksAndDeathDb;User ID=parksanddeath;Password=Bears1234!;Encrypt=true;Connection Timeout=30");
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             }
         }
 
@@ -252,6 +252,33 @@ namespace ParksAndDeath.Models
                     .HasForeignKey(d => d.CurrentUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__UserParks__curre__02FC7413");
+            });
+
+            modelBuilder.Entity<UserPreferences>(entity =>
+            {
+                entity.HasKey(e => e.PreferencesId)
+                    .HasName("PK__UserPref__F62A20A044A43B7A");
+
+                entity.Property(e => e.PreferencesId).HasColumnName("preferencesId");
+
+                entity.Property(e => e.CurrentUserId)
+                    .HasColumnName("currentUserID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.EndYear)
+                    .HasColumnName("endYear")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Frequency).HasColumnName("frequency");
+
+                entity.Property(e => e.StartYear)
+                    .HasColumnName("startYear")
+                    .HasColumnType("date");
+
+                entity.HasOne(d => d.CurrentUser)
+                    .WithMany(p => p.UserPreferences)
+                    .HasForeignKey(d => d.CurrentUserId)
+                    .HasConstraintName("FK__UserPrefe__curre__0E6E26BF");
             });
 
             OnModelCreatingPartial(modelBuilder);

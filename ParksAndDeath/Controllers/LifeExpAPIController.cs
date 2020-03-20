@@ -94,9 +94,6 @@ namespace ParksAndDeath.Controllers
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             int blCount = _context.UserParks.Where(x => x.CurrentUserId == id).ToList().Count;
 
-            ViewBag.blCount = blCount;
-            ViewBag.timeLeft = timeLeft;
-
             if(smokes == true)
             {
                 timeLeft = timeLeft - 10;
@@ -105,11 +102,16 @@ namespace ParksAndDeath.Controllers
             {
                 timeLeft = timeLeft - 3;
             }
-
             double lifeCalc = Math.Ceiling((blCount / timeLeft));
-            return View("LifeExpectancyCalc", lifeCalc);
+            TempData["yearsRemaining"] = lifeCalc;
+            return RedirectToAction("UserPreferences");
         }
 
+        [HttpGet]
+        //public IActionResult UserPreferences()
+        //{
+
+        //}
         //public IActionResult ParkPlanFeasibilitySummary(LifeRootobject lifeExpectancy)
         //{
 
