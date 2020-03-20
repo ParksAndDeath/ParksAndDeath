@@ -1,13 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace ParksAndDeath.Models
 {
     public partial class ParksAndDeathDbContext : DbContext
     {
-        public IConfiguration Configuration { get; }
         public ParksAndDeathDbContext()
         {
         }
@@ -33,7 +31,7 @@ namespace ParksAndDeath.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                optionsBuilder.UseSqlServer("Server=tcp:ParksAndDeath.database.windows.net,1433;Database=ParksAndDeathDb;User ID=parksanddeath;Password=Bears1234!;Encrypt=true;Connection Timeout=30");
             }
         }
 
@@ -161,17 +159,19 @@ namespace ParksAndDeath.Models
             modelBuilder.Entity<UserInfo>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__UserInfo__CB9A1CFF88DCD155");
+                    .HasName("PK__UserInfo__CB9A1CFF0498ADD3");
 
                 entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.Property(e => e.Country)
+                    .HasColumnName("country")
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.Dob)
                     .HasColumnName("dob")
                     .HasColumnType("date");
 
-                entity.Property(e => e.Drinker)
-                    .HasColumnName("drinker")
-                    .HasMaxLength(5);
+                entity.Property(e => e.Drinker).HasColumnName("drinker");
 
                 entity.Property(e => e.Gender)
                     .IsRequired()
@@ -187,14 +187,12 @@ namespace ParksAndDeath.Models
                     .HasColumnName("ownerId")
                     .HasMaxLength(450);
 
-                entity.Property(e => e.Smoker)
-                    .HasColumnName("smoker")
-                    .HasMaxLength(5);
+                entity.Property(e => e.Smoker).HasColumnName("smoker");
 
                 entity.HasOne(d => d.Owner)
                     .WithMany(p => p.UserInfo)
                     .HasForeignKey(d => d.OwnerId)
-                    .HasConstraintName("FK__UserInfo__ownerI__05D8E0BE");
+                    .HasConstraintName("FK__UserInfo__ownerI__08B54D69");
             });
 
             modelBuilder.Entity<UserParks>(entity =>
