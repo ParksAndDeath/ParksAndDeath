@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "UserPreferences";
+}
+
+<h1>User Preferences</h1>
+
+<form action="../User/UserPreferences" method="post">
+    When would you like to start visiting parks?<input type="date" name="StartYear" value="" />
+    When would you like to have your bucket list completed by?<input type="date" name="EndYear" value=""/>
+    <input type="range" name="Frequency" value="" />
+    <input type="submit" value="Submit Preferences" />
+</form>
+

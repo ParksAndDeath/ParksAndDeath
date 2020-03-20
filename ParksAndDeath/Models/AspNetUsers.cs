@@ -13,6 +13,7 @@ namespace ParksAndDeath.Models
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
             UserInfo = new HashSet<UserInfo>();
             UserParks = new HashSet<UserParks>();
+            UserPreferences = new HashSet<UserPreferences>();
         }
 
         public string Id { get; set; }
@@ -37,5 +38,6 @@ namespace ParksAndDeath.Models
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual ICollection<UserInfo> UserInfo { get; set; }
         public virtual ICollection<UserParks> UserParks { get; set; }
+        public virtual ICollection<UserPreferences> UserPreferences { get; set; }
     }
 }

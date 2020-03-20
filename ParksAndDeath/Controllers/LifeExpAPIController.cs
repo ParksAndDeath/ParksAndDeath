@@ -107,7 +107,8 @@ namespace ParksAndDeath.Controllers
             }
 
             double lifeCalc = Math.Ceiling((blCount / timeLeft));
-            return View("LifeExpectancyCalc", lifeCalc);
+            TempData["lifeCalc"] = lifeCalc;
+            return RedirectToAction("UserPreferences", "User");
         }
 
         //public IActionResult ParkPlanFeasibilitySummary(LifeRootobject lifeExpectancy)
