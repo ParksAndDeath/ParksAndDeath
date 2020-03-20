@@ -161,25 +161,40 @@ namespace ParksAndDeath.Models
             modelBuilder.Entity<UserInfo>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__UserInfo__1788CC4C6E9367BC");
+                    .HasName("PK__UserInfo__CB9A1CFF0498ADD3");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.Property(e => e.Country)
+                    .HasColumnName("country")
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.Dob)
-                    .HasColumnName("DOB")
+                    .HasColumnName("dob")
                     .HasColumnType("date");
 
-                entity.Property(e => e.Gender).HasMaxLength(10);
+                entity.Property(e => e.Drinker).HasColumnName("drinker");
 
-                entity.Property(e => e.Name).HasMaxLength(100);
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasColumnName("gender")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.OwnerId)
-                    .IsRequired()
+                    .HasColumnName("ownerId")
                     .HasMaxLength(450);
+
+                entity.Property(e => e.Smoker).HasColumnName("smoker");
 
                 entity.HasOne(d => d.Owner)
                     .WithMany(p => p.UserInfo)
                     .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserInfo__OwnerI__6383C8BA");
+                    .HasConstraintName("FK__UserInfo__ownerI__08B54D69");
             });
 
             modelBuilder.Entity<UserParks>(entity =>
