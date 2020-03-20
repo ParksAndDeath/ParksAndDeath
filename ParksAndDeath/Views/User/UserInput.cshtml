@@ -3,10 +3,10 @@
     ViewData["Title"] = "UserInput";
 }
 
-@model string
+@model UserInfo
 <h1>Life Expectancy</h1>
 
-<p>@Model</p>
+<p>@Model.Name</p>
 @*<form action="../User/Index" method="post">
     <input type="text" name="Name" placeholder=@Model.Name /><br />
     @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),

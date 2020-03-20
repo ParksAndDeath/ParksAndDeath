@@ -18,12 +18,26 @@ namespace ParksAndDeath.Controllers
         {
             _context = context;
         }
+
+        [HttpGet]
+        public IActionResult AddUserInput()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        //public IActionResult AddUserInput(UserInfo userInfo)
+        //{
+        //    string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+        //    return RedirectToAction()
+        //}
         public IActionResult UserInput()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var userInfo = _context.UserInfo.Where(x => x.OwnerId == id);
             var testType = userInfo.GetType().ToString();
-            return View(testType);
+            return View(userInfo);
         }
     }
 }
