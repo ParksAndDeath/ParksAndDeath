@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ParksAndDeath.Models
 {
+   
     public partial class ParksAndDeathDbContext : DbContext
     {
         public IConfiguration Configuration { get; }

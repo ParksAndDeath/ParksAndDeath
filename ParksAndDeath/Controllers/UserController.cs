@@ -80,5 +80,27 @@ namespace ParksAndDeath.Controllers
         {
             return View(userInfo);
         }
+        [HttpGet]
+        public IActionResult UserPreferences()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult UserPreferences(UserPreferences userPreferences)
+        {
+            //getting id of currently logged in user
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            //Do the names of the inputs in the form match the properties in our model
+            if (ModelState.IsValid)
+            {
+                //setting the currentUserId to the id of the user logged in
+                userPreferences.CurrentUserId = id;
+                _context.UserPreferences.Add(userPreferences);
+                _context.SaveChanges();
+                return View("ViewUserPreferences", userPreferences);
+            }
+            return View();
+        }
     }
 }

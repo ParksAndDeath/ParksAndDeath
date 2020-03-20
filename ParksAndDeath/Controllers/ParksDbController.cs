@@ -21,9 +21,7 @@ namespace ParksAndDeath.Controllers
         public IActionResult UpdateParkVisited(int id)
         {
             string Userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == id).ToList();
-            //List<UserParks> userParks = _context.Parks.OrderBy(x => x.ParkCode).ToList();
-            
+               
             UserParks found = _context.UserParks.Where(x => x.UsersParkIds == id).First();
             found.ParkVisited = true;
             _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
