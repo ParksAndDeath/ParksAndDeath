@@ -18,7 +18,7 @@ namespace ParksAndDeath.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> LifeExpectancyCalc(string Country, int Age, string Sex, int year)
+        public async Task<IActionResult> LifeExpectancyCalc(string Country, int Age, string Sex, int year, bool smokes, bool drinks)
         {
             string ageGroup = "";
             if (Age < 5)
@@ -93,8 +93,19 @@ namespace ParksAndDeath.Controllers
             double timeLeft = life.fact[0].value.numeric;
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             int blCount = _context.UserParks.Where(x => x.CurrentUserId == id).ToList().Count;
+<<<<<<< HEAD
             ViewBag.blCount = blCount;
             ViewBag.timeLeft = timeLeft;
+=======
+            if(smokes == true)
+            {
+                timeLeft = timeLeft - 10;
+            }
+            if(drinks == true)
+            {
+                timeLeft = timeLeft - 3;
+            }
+>>>>>>> dfd7da0e250e5e8faa5a1f048fce2ae316864f65
             double lifeCalc = Math.Ceiling((blCount / timeLeft));
             return View("LifeExpectancyCalc", lifeCalc);
         }

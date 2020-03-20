@@ -18,28 +18,51 @@ namespace ParksAndDeath.Controllers
             _context = context;
         }
 
+        public IActionResult UpdateParkVisited(int id)
+        {
+            string Userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == id).ToList();
+            //List<UserParks> userParks = _context.Parks.OrderBy(x => x.ParkCode).ToList();
+            
+            UserParks found = _context.UserParks.Where(x => x.UsersParkIds == id).First();
+            found.ParkVisited = true;
+            _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Update(found);
+            _context.SaveChanges();
+            
+
+            return RedirectToAction("parksVisited");
+        }
+
         public IActionResult ParksVisited()
         {
-            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == id).ToList();
+            string Userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == Userid).ToList();
             List<UserParks> visitedParks = new List<UserParks>();
-            foreach(UserParks park in userParks)
+            foreach (UserParks bucketListPark in userParks)
             {
-                if(park.ParkVisited == true)
+                if(bucketListPark.ParkVisited == true)
                 {
-                    visitedParks.Add(park);
+                    visitedParks.Add(bucketListPark);
                 }
             }
             return View(visitedParks);
         }
 
-        //diplays a list of all the parks
+
+
+        //displays a list of all the parks
         public IActionResult Index()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<Parks> fullList = _context.Parks.OrderBy(x => x.ParkCode).ToList();
+<<<<<<< HEAD
             List<string> parcodes = _context.UserParks.Where(x => x.CurrentUserId == id).Select(f => f.ParkCode).ToList();
           
+=======
+            //List<string> parcodes = _context.UserParks.Select(x => x.ParkCode).Where(x => x.CurrentUserId == id).ToList();
+            List<string> parcodes = _context.UserParks.Where(x => x.CurrentUserId == id).Select(f => f.ParkCode).ToList();
+>>>>>>> dfd7da0e250e5e8faa5a1f048fce2ae316864f65
             List<Parks> parksAvailable = new List<Parks>();
             ////if the park isn't included in the bucketlist it will display the whole list from the database
             if (parcodes.Count == 0)
@@ -91,5 +114,8 @@ namespace ParksAndDeath.Controllers
 
             return RedirectToAction("Index");
         }
+
+       
+      
     }
 }
