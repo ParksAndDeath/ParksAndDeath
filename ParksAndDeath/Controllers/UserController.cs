@@ -70,7 +70,7 @@ namespace ParksAndDeath.Controllers
                 _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Update(found);
                 _context.SaveChanges();
-                return View("ViewUserProfileInformation", userinfo);
+                return View("ViewUserProfileInformation", found);
             }
 
             return View("UpdateUserInfo");
