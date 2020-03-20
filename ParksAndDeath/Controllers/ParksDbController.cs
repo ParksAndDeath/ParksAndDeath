@@ -56,8 +56,8 @@ namespace ParksAndDeath.Controllers
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<Parks> fullList = _context.Parks.OrderBy(x => x.ParkCode).ToList();
-            List<string> parcodes = _context.UserParks.Select(x => x.ParkCode).ToList();
-          
+            //List<string> parcodes = _context.UserParks.Select(x => x.ParkCode).Where(x => x.CurrentUserId == id).ToList();
+            List<string> parcodes = _context.UserParks.Where(x => x.CurrentUserId == id).Select(f => f.ParkCode).ToList();
             List<Parks> parksAvailable = new List<Parks>();
             ////if the park isn't included in the bucketlist it will display the whole list from the database
             if (parcodes.Count == 0)
