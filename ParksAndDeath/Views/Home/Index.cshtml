@@ -2,10 +2,48 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <h4>Thank you for logging into Parks and Death! the application that lets you know how many national parks you need to visit before you DIE</a>.</h4>
-        <p class="text-center">Lets get started by taking a look at all of the national parks! (please click the "see parks" button below)</p>
-        <a class="btn btn-primary" href="../ParksDb/">See Parks</a>
-        
+<style>
+    body {
+        background-image: url(https://i.pinimg.com/564x/26/ef/41/26ef41a973e3d5762d6179b701b96868.jpg);
+    }
+
+    .text-center {
+        display: table;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+    .text-center-container {
+        display: table-cell;
+        width: 100%;
+        vertical-align: middle;
+    }
+
+    .text-center-box {
+        display: inline-block;
+        padding: 50px;
+        background-color: #ffffff;
+    }
+</style>
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h4>Thank you for logging into Parks and Death! the application that lets you know how many national parks you need to visit before you DIE</a>.</h4>
+    <p class="text-center">Lets get started by taking a look at all of the national parks! (please click the "see parks" button below)</p>
+    <a class="btn btn-primary" href="../ParksDb/">See Parks</a>
+
+</div>*@
+
+<div class="text-center">
+    <div class="text-center-container">
+        <div class="text-center-box">
+            <h1 style="font-family:Cooper">Welcome to Parks and Death!</h1>
+            <h4 style="font-family:Cooper">The application that lets you know many</h4>
+            <h4 style="font-family:Cooper">National Parks you need to visit before you DIE!</h4>
+            <p><img src="https://cloudinary-a.akamaihd.net/holdmyticket/image/upload/w_700,h_700,c_fit,c_limit,q_68,dn_72,f_auto/v6/uploads/flyers2/i2hklx2vw1d8iuu8yeqp.jpg" alt="smokey the bear" height="400" width="285"></p>
+            <h5 style="font-family:Cooper">Click the button below to get started!</h5>
+            <a class="btn btn-primary" href="../User/AddUserInput">Create a Profile</a>
+
+        </div>
     </div>
+</div>

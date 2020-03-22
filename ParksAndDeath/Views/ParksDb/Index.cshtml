@@ -4,40 +4,85 @@
 }
 @model List<Parks>
 
-<h1>Add a Park to Your Bucket List</h1>
-<p>Go ahead and choose National parks from the list that you would like to add to your own personal bucket list so that you can move onto the next step!</p>
 
-<table class="table">
-    <tr>
-        <th>Park Name</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>Web Address</th>
-    </tr>
-    @foreach (Parks park in Model)
-    {
+    <style>
+        body {
+            background-image: url(https://images-na.ssl-images-amazon.com/images/I/71SQHJyTY%2BL._AC_SL1100_.jpg);
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+        }
+
+        h1{
+            
+            font-family:Cooper;
+            background-color: whitesmoke;
+        }
+        p{
+            font-family:Cooper;
+            background-color:whitesmoke;
+        }
+        .text-center {
+            display: table;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .text-center-container {
+            display: table-cell;
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        .text-center-box {
+            display: inline-block;
+            padding: 50px;
+            background-color: #ffffff;
+        }
+    </style>
+<h1 align="center">Add a Park to Your Bucket List</h1>
+<p align="center">Choose National Parks from the list that you would like to add to your bucket list!</p>
+
+<table class="table table-hover table-dark">
         <tr>
-            <td>@park.FullName</td>
-            <td>@park.City</td>
-            <td>@park.States</td>
-            <td>@park.Latitude</td>
-            <td>@park.Longitude</td>
-            <td>@park.Url</td>
-            <td>
-                <form action="../ParksDb/AddParkToBuckList" method="post">
-                    <input type="hidden" name="name" value="@park.FullName" />
-                    <input type="hidden" name="city" value="@park.City" />
-                    <input type="hidden" name="state" value="@park.States" />
-                    <input type="hidden" name="latitude" value="@park.Latitude" />
-                    <input type="hidden" name="longitude" value="@park.Longitude" />
-                    <input type="hidden" name="url" value="@park.Url" />
-                    <input type="hidden" name="parkcode" value="@park.ParkCode" />
-                    <input type="submit" class="btn btn-outline-success" value="Add to Bucket List" />
-                </form>
-            </td>
+            <th>Park Name</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Web Address</th>
         </tr>
+        @foreach (Parks park in Model)
+        {
+            <tr>
+                <td>@park.FullName</td>
+                <td>@park.City</td>
+                <td>@park.States</td>
+                <td>@park.Latitude</td>
+                <td>@park.Longitude</td>
+                <td><a href="@park.Url">@park.Url</a></td>
+                <td>
+                    <form action="../ParksDb/AddParkToBuckList" method="post">
+                        <input type="hidden" name="name" value="@park.FullName" />
+                        <input type="hidden" name="city" value="@park.City" />
+                        <input type="hidden" name="state" value="@park.States" />
+                        <input type="hidden" name="latitude" value="@park.Latitude" />
+                        <input type="hidden" name="longitude" value="@park.Longitude" />
+                        <input type="hidden" name="url" value="@park.Url" />
+                        <input type="hidden" name="parkcode" value="@park.ParkCode" />
+                        <input type="submit" class="btn btn-outline-primary" value="Add to Bucket List" />
+                    </form>
+                </td>
+            </tr>
 
-    }
-</table>
+        }
+    </table>
+
+
+    

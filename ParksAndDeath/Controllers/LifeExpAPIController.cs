@@ -103,13 +103,10 @@ namespace ParksAndDeath.Controllers
                 timeLeft = timeLeft - 3;
             }
             double lifeCalc = Math.Ceiling((blCount / timeLeft));
-<<<<<<< HEAD
-            TempData["yearsRemaining"] = lifeCalc;
-            return RedirectToAction("UserPreferences");
-=======
+
             TempData["lifeCalc"] = lifeCalc;
             return RedirectToAction("UserPreferences", "User");
->>>>>>> ecef5e0276c4167002b65fafccce1fa4c38224e8
+
         }
 
         [HttpGet]

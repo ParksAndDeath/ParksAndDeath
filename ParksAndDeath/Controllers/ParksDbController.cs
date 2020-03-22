@@ -35,7 +35,8 @@ namespace ParksAndDeath.Controllers
         public IActionResult ParksVisited()
         {
             string Userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == Userid).Where(y => y.ParkVisited == true).ToList();
+            List<UserParks> userParks = _context.UserParks.OrderBy(w => w.ParkName).Where(x => x.CurrentUserId == Userid).Where(y => y.ParkVisited == true).ToList();
+           
             //List<UserParks> visitedParks = new List<UserParks>();
             //foreach (UserParks bucketListPark in userParks)
             //{
@@ -53,7 +54,7 @@ namespace ParksAndDeath.Controllers
         public IActionResult Index()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<Parks> fullList = _context.Parks.OrderBy(x => x.ParkCode).ToList();
+            List<Parks> fullList = _context.Parks.OrderBy(x => x.FullName).ToList();
             List<string> parcodes = _context.UserParks.Where(x => x.CurrentUserId == id).Select(f => f.ParkCode).ToList();
             List<Parks> parksAvailable = new List<Parks>();
             ////if the park isn't included in the bucketlist it will display the whole list from the database
@@ -79,7 +80,7 @@ namespace ParksAndDeath.Controllers
         public IActionResult DisplayBucketList()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return View(_context.UserParks.Where(x => x.CurrentUserId == id).Where(y => y.ParkVisited == false).ToList());
+            return View(_context.UserParks.OrderBy(x => x.ParkName).Where(x => x.CurrentUserId == id).Where(y => y.ParkVisited == false).ToList());
         }
 
         public IActionResult AddParkToBuckList(string name, string city, string state, string latitude, string longitude, string url, string parkcode)
