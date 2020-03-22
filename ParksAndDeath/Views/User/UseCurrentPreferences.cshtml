@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "UseCurrentPreferences";
+}
+
+@model UserPreferences
+<h1>Please Update Your Park Visit Itenerary Preferences below</h1>
+
+<form action="../User/UpdateUserPreferences" method="post">
+    <br /><input type="date" name="StartYear" placeholder="@Model.StartYear" value="" /><br />
+    When would you like to have your bucket list completed by:<br /><input type="date" name="EndYear" @Model.EndYear value="" /><br /><br />
+    <input type="range" min="0" max="20" name="Frequency" step="1" list="tickMarks" value="@Model.Frequency" oninput="range_Frequency_disp.value">
+    <output id="range_Frequency_disp"></output>
+    <br />
+    <input type="submit" value="Update Preferences" />
+</form>
+
