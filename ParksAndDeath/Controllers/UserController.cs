@@ -83,6 +83,7 @@ namespace ParksAndDeath.Controllers
         [HttpGet]
         public IActionResult UserPreferences()
         {
+            
             return View();
         }
         [HttpPost]
@@ -91,16 +92,29 @@ namespace ParksAndDeath.Controllers
             //getting id of currently logged in user
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            //Do the names of the inputs in the form match the properties in our model
+            //Do the names of the inputs in the form match the properties in our model?
             if (ModelState.IsValid)
             {
                 //setting the currentUserId to the id of the user logged in
                 userPreferences.CurrentUserId = id;
+
+                //Adding the specified UserPreferences from the form to the db
                 _context.UserPreferences.Add(userPreferences);
+
+
                 _context.SaveChanges();
                 return View("ViewUserPreferences", userPreferences);
             }
             return View();
+        }
+
+        //Gets the form to modify user preferences if Start date is less than 
+        [HttpGet]
+        public IActionResult UseCurrentPreferences()
+        {
+            //get the user preference object obtained and stored in tempdata object and cast it as a UserPreferences object
+            UserPreferences currentPrefs = (UserPreferences)TempData["CurrentPrefs"];
+            return View(currentPrefs);
         }
     }
 }
