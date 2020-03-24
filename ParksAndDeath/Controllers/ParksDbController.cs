@@ -36,15 +36,7 @@ namespace ParksAndDeath.Controllers
         {
             string Userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<UserParks> userParks = _context.UserParks.OrderBy(w => w.ParkName).Where(x => x.CurrentUserId == Userid).Where(y => y.ParkVisited == true).ToList();
-           
-            //List<UserParks> visitedParks = new List<UserParks>();
-            //foreach (UserParks bucketListPark in userParks)
-            //{
-            //    if(bucketListPark.ParkVisited == true)
-            //    {
-            //        visitedParks.Add(bucketListPark);
-            //    }
-            //}
+
             return View(userParks);
         }
 
@@ -109,7 +101,21 @@ namespace ParksAndDeath.Controllers
             return RedirectToAction("Index");
         }
 
-       
-      
+        //need to get this to work
+       public IActionResult RemoveFromBucketList(int id)
+        {
+            var FullList = new Parks();         
+            UserParks found = _context.UserParks.Where(x => x.UsersParkIds == id).First();
+          
+            if(found != null)
+            {
+                _context.UserParks.Remove(found);
+                _context.SaveChanges();
+            }
+                
+                return RedirectToAction("DisplayBucketList");         
+        }
+
+     
     }
 }

@@ -95,10 +95,10 @@ namespace ParksAndDeath.Controllers
 
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://apps.who.int/gho/athena/api/GHO/");
-                var response = await client.GetAsync($"LIFE_0000000035.json?filter=COUNTRY:{found.Country};Agegroup:{ageGroup};SEX:{found.Gender};YEAR:{year}");
-                var life = await response.Content.ReadAsAsync<LifeRootobject>();
+                var response = await client.GetAsync($"LIFE_0000000035.json?filter=COUNTRY:{found.Country};Agegroup:{ageGroup};SEX:{found.Gender};YEAR:{year}");//specify the endpoint we want to use
+                var life = await response.Content.ReadAsAsync<LifeRootobject>(); //this is where the data is parsed to the appropriate class
                 double timeLeft = life.fact[0].value.numeric;
-                
+
                 if (found.Smoker == true)
                 {
                     timeLeft = timeLeft - 10;
@@ -130,28 +130,6 @@ namespace ParksAndDeath.Controllers
                 ViewBag["message"] = "Oooops.... we don't have your Profile info.  Fill it out below:";
                 return RedirectToAction("AddUserInput", "User");
             }
-<<<<<<< HEAD
-            double lifeCalc = Math.Ceiling((blCount / timeLeft));
-
-            TempData["lifeCalc"] = lifeCalc;
-            return RedirectToAction("UserPreferences", "User");
-
-=======
->>>>>>> reggie
         }
-
-        //[HttpGet]
-        //public IActionResult UserPreferences()
-        //{
-
-        //}
-        //public IActionResult ParkPlanFeasibilitySummary(LifeRootobject lifeExpectancy)
-        //{
-
-        //}
-        //public Task<IActionResult> Index()
-        //{
-        //    return View();
-        //}
     }
 }
