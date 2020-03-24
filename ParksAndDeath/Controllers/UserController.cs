@@ -30,16 +30,26 @@ namespace ParksAndDeath.Controllers
         public IActionResult AddUserInput(UserInfo userInfo)
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //checks if the user already has info
 
-            if (ModelState.IsValid)
+            try
             {
-                userInfo.OwnerId = id;
-                _context.UserInfo.Add(userInfo);
-                _context.SaveChanges();
-                return View("ViewUserProfileInformation", userInfo);
-            }
+                var found = _context.UserInfo.Where(x => x.OwnerId == id).First();
 
-            return View("AddUserInput");
+            }
+            catch
+            {
+                if (ModelState.IsValid)
+                {
+                    userInfo.OwnerId = id;
+                    _context.UserInfo.Add(userInfo);
+                    _context.SaveChanges();
+                    return View("ViewUserProfileInformation", userInfo);
+                }
+                return View("AddUserInput");
+            }
+            return RedirectToAction("UpdateUserInfo");
+
         }
 
         [HttpGet]
@@ -83,7 +93,7 @@ namespace ParksAndDeath.Controllers
         [HttpGet]
         public IActionResult UserPreferences()
         {
-            
+
             return View();
         }
         [HttpPost]

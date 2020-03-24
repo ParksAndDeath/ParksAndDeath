@@ -93,6 +93,7 @@ namespace ParksAndDeath.Controllers
                     ageGroup = "AGE75-79";
                 }
 
+                //calling the API
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://apps.who.int/gho/athena/api/GHO/");
                 var response = await client.GetAsync($"LIFE_0000000035.json?filter=COUNTRY:{found.Country};Agegroup:{ageGroup};SEX:{found.Gender};YEAR:{year}");//specify the endpoint we want to use
@@ -130,6 +131,13 @@ namespace ParksAndDeath.Controllers
                 ViewBag["message"] = "Oooops.... we don't have your Profile info.  Fill it out below:";
                 return RedirectToAction("AddUserInput", "User");
             }
+<<<<<<< HEAD
         }
+=======
+
+        }
+
+      
+>>>>>>> be688f2ad972bdfdc01ff4718c52dbc55dd61726
     }
 }
