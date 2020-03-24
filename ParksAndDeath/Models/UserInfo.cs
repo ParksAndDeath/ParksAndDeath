@@ -24,7 +24,6 @@ namespace ParksAndDeath.Models
         [Required(ErrorMessage ="PLEASE SPECIFY THE COUNTRY YOU LIVE IN FROM THE DROP DOWN BELOW")]
         public string Country { get; set; }
 
-        [Required(ErrorMessage ="PLEASE SPECIFY YOUR AGE BELOW")]
         public int? Age { get; set; }
 
         public virtual AspNetUsers Owner { get; set; }

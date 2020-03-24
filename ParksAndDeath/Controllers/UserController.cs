@@ -33,6 +33,13 @@ namespace ParksAndDeath.Controllers
 
             if (ModelState.IsValid)
             {
+                DateTime dob = (DateTime)userInfo.Dob;
+                int age = 0;
+                age = DateTime.Now.Year - dob.Year;
+                if (DateTime.Now.DayOfYear < dob.DayOfYear)
+                    age = age - 1;
+
+                userInfo.Age = age;
                 userInfo.OwnerId = id;
                 _context.UserInfo.Add(userInfo);
                 _context.SaveChanges();
@@ -67,6 +74,7 @@ namespace ParksAndDeath.Controllers
                 found.Name = userinfo.Name;
                 found.Smoker = userinfo.Smoker;
                 found.Drinker = userinfo.Drinker;
+                found.Country = userinfo.Country;
                 _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Update(found);
                 _context.SaveChanges();
@@ -83,12 +91,23 @@ namespace ParksAndDeath.Controllers
         [HttpGet]
         public IActionResult UserPreferences()
         {
-            
-            return View();
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            UserPreferences prefFound = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
+            if (prefFound == null)
+            {
+                return View();
+            }
+
+            else
+            {
+                TempData["preferenceUpdate"] = prefFound;
+                return RedirectToAction("UseCurrentPreferences");
+            }
         }
         [HttpPost]
         public IActionResult UserPreferences(UserPreferences userPreferences)
         {
+
             //getting id of currently logged in user
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -113,7 +132,7 @@ namespace ParksAndDeath.Controllers
         public IActionResult UseCurrentPreferences()
         {
             //get the user preference object obtained and stored in tempdata object and cast it as a UserPreferences object
-            UserPreferences currentPrefs = (UserPreferences)TempData["CurrentPrefs"];
+            UserPreferences currentPrefs = (UserPreferences)TempData["preferenceUpdate"];
             return View(currentPrefs);
         }
     }

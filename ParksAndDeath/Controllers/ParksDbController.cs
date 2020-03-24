@@ -108,8 +108,5 @@ namespace ParksAndDeath.Controllers
 
             return RedirectToAction("Index");
         }
-
-       
-      
     }
 }

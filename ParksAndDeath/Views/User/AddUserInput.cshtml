@@ -16,11 +16,7 @@
     @Html.LabelFor(m => m.Dob)
     @Html.ValidationMessageFor(m => m.Dob)
     <label for="Dob">Date of Birth</label>
-    Enter Your DOB: <input type="date" name="Dob" value="" /><br />
-    @Html.LabelFor(m => m.Gender)
-    @Html.ValidationMessageFor(m => m.Gender)
-    <label for="Age">Age</label>
-    <input type="number" name="Age" value="" /><br />
+    <input type="date" name="Dob" value="" /><br />
     @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
 "Select Gender", new { @class = "form-control" })<br />
     @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),
