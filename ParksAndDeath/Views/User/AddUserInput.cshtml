@@ -6,7 +6,7 @@
 @model UserInfo
 
 @Html.ValidationSummary()
-<h1>Add User Information</h1>
+<h1>@ViewBag.userInfoMessage</h1>
 
 <form action="../User/AddUserInput" method="post">
     @Html.LabelFor(m => m.Name)

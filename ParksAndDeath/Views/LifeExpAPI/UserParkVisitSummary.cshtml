@@ -7,8 +7,11 @@
 
 <h1>Bucket Listed Items with Dates to visit</h1>
 
-@foreach(UserParks park in @Model.bucketedParks)
+@foreach (UserParks park in @Model.bucketedParks)
 {
-
+    <p>@park.ParkName</p>
+    <p>@park.State</p>
+    <p>@park.City</p>
+    <p>@park.Url</p>
 }
 
