@@ -39,7 +39,7 @@ namespace ParksAndDeath.Controllers
                     var userInfo = _context.UserInfo.Where(x => x.OwnerId == userId).First();
                     if (userBl != null && userInfo != null)
                     {
-                        return RedirectToAction("UpdateUserInfo", "User");
+                        return View("FullUser"); //buttons to see parks, button to see BucketList, update user info button. parks youve visited button
                     }
                     if (userInfo != null)
                     {
