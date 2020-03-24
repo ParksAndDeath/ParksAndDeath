@@ -138,9 +138,79 @@ namespace ParksAndDeath.Controllers
 
             if (found != null)
             {
+<<<<<<< HEAD
                 string ageGroup = GetAgeGroup((int)found.Age);
                 
                 //we create an new HttpClient
+=======
+                string ageGroup = "";
+                if (found.Age < 5)
+                {
+                    ageGroup = "AGELT1";
+                }
+                if (found.Age >= 5 && found.Age <= 9)
+                {
+                    ageGroup = "AGE5-9";
+                }
+                if (found.Age >= 10 && found.Age <= 14)
+                {
+                    ageGroup = "AGE10-14";
+                }
+                if (found.Age >= 15 && found.Age <= 19)
+                {
+                    ageGroup = "AGE15-19";
+                }
+                if (found.Age >= 20 && found.Age <= 24)
+                {
+                    ageGroup = "AGE20-24";
+                }
+                if (found.Age >= 25 && found.Age <= 29)
+                {
+                    ageGroup = "AGE25-29";
+                }
+                if (found.Age >= 30 && found.Age <= 34)
+                {
+                    ageGroup = "AGE30-34";
+                }
+                if (found.Age >= 35 && found.Age <= 39)
+                {
+                    ageGroup = "AGE35-39";
+                }
+                if (found.Age >= 40 && found.Age <= 44)
+                {
+                    ageGroup = "AGE40-44";
+                }
+                if (found.Age >= 45 && found.Age <= 49)
+                {
+                    ageGroup = "AGE45-49";
+                }
+                if (found.Age >= 50 && found.Age <= 54)
+                {
+                    ageGroup = "AGE50-54";
+                }
+                if (found.Age >= 55 && found.Age <= 59)
+                {
+                    ageGroup = "AGE55-59";
+                }
+                if (found.Age >= 60 && found.Age <= 64)
+                {
+                    ageGroup = "AGE60-64";
+                }
+                if (found.Age >= 65 && found.Age <= 69)
+                {
+                    ageGroup = "AGE65-69";
+                }
+                if (found.Age >= 70 && found.Age <= 74)
+                {
+                    ageGroup = "AGE70-74";
+                }
+                if (found.Age >= 75 && found.Age <= 79)
+                {
+                    ageGroup = "AGE75-79";
+                }
+
+                //calling the API
+>>>>>>> be688f2ad972bdfdc01ff4718c52dbc55dd61726
                 var client = new HttpClient();
 
                 //specify the base address
@@ -199,6 +269,7 @@ namespace ParksAndDeath.Controllers
                 TempData["usersPreferences"] = prefFound;
                 return RedirectToAction("UserPreferences", "User");
             }
+<<<<<<< HEAD
         }
 
         public IActionResult UserParkVisitSummary()
@@ -206,5 +277,11 @@ namespace ParksAndDeath.Controllers
             return View(TempData["BuckSummary"]);
         }
         
+=======
+
+        }
+
+      
+>>>>>>> be688f2ad972bdfdc01ff4718c52dbc55dd61726
     }
 }

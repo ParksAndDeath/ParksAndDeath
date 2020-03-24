@@ -30,9 +30,11 @@ namespace ParksAndDeath.Controllers
         public IActionResult AddUserInput(UserInfo userInfo)
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //checks if the user already has info
 
-            if (ModelState.IsValid)
+            try
             {
+<<<<<<< HEAD
                 DateTime dob = (DateTime)userInfo.Dob;
                 int age = 0;
                 age = DateTime.Now.Year - dob.Year;
@@ -44,9 +46,24 @@ namespace ParksAndDeath.Controllers
                 _context.UserInfo.Add(userInfo);
                 _context.SaveChanges();
                 return View("ViewUserProfileInformation", userInfo);
-            }
+=======
+                var found = _context.UserInfo.Where(x => x.OwnerId == id).First();
 
-            return View("AddUserInput");
+>>>>>>> be688f2ad972bdfdc01ff4718c52dbc55dd61726
+            }
+            catch
+            {
+                if (ModelState.IsValid)
+                {
+                    userInfo.OwnerId = id;
+                    _context.UserInfo.Add(userInfo);
+                    _context.SaveChanges();
+                    return View("ViewUserProfileInformation", userInfo);
+                }
+                return View("AddUserInput");
+            }
+            return RedirectToAction("UpdateUserInfo");
+
         }
 
         [HttpGet]
@@ -91,6 +108,7 @@ namespace ParksAndDeath.Controllers
         [HttpGet]
         public IActionResult UserPreferences()
         {
+<<<<<<< HEAD
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             UserPreferences prefFound = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
             if (prefFound == null)
@@ -103,6 +121,10 @@ namespace ParksAndDeath.Controllers
                 TempData["preferenceUpdate"] = prefFound;
                 return RedirectToAction("UseCurrentPreferences");
             }
+=======
+
+            return View();
+>>>>>>> be688f2ad972bdfdc01ff4718c52dbc55dd61726
         }
         [HttpPost]
         public IActionResult UserPreferences(UserPreferences userPreferences)
