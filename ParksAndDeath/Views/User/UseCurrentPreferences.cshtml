@@ -7,23 +7,21 @@
 <h1>Please Update Your Park Visit Itenerary Preferences below</h1>
 
 <form action="../User/UpdateUserPreferences" method="post">
-    <fieldset>
-        <legend>Park Visit Settings Form</legend>
-        <label for="PreviousStart">Previous Start Date</label>
-        <input type="text" name="PreviousStart" value=@Model.StartYear.ToString() readonly />
-        <label for="StartYear">Start Date</label>
-        <input type="date" name="StartYear" value="" /><br />
-        <label for="PreviousEnd">Previous End Date</label>
-        <input type="text" name="PreviousEnd" value=@Model.EndYear.ToString() readonly />
-        <label for="EndYear">End Date</label>
-        <input type="date" name="EndYear" value="" /><br />
-        <label for="frequency">Previous Frequency Setting</label>
-        <input type="text" name="frequency" value=@Model.Frequency.ToString() readonly />
-        <label for="Frequency">Frequency Setting</label>
-        <input type="range" min="0" max="20" name="Frequency" step="1" list="tickMarks" value="@Model.Frequency" oninput="range_Frequency_disp.value">
-        <output id="range_Frequency_disp"></output>
-        <br />
+    <table>
+        <tr>
+            <th>Previous Start Date</th>
+            <th>Previous End Date</th>
+            <th>New Start Date</th>
+            <th>New End Date</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="PreviousStart" value=@Model.StartYear.ToString() readonly /></td>
+            <td><input type="text" name=" = PreviousEnd" value=@Model.EndYear.ToString() readonly/></td>
+            <td><input type="date" name="StartYear" value="" /></td>
+            <td><input type="date" name="EndYear" value="" /></td>
+        </tr>
+    </table>
+        <input type="hidden" name="Frequency" value="@Model.Frequency">
         <input type="submit" value="Update Preferences" />
-    </fieldset>
 </form>
 

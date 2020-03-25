@@ -12,11 +12,37 @@
     }
 
     h1 {
+<<<<<<< HEAD
         font-family: Cooper;
         font-weight: bold;
         font-size: 75px;
         color: brown;
         text-align: center;
+=======
+        background-color: #0094ff;
+        font-family: Cooper;
+        color: white;
+        text-align: center;
+    }
+
+    
+    th, td {
+    text-align: left;
+    padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+    tr:nth-child(odd) {
+        background-color: #ECE5B6
+    }
+
+    th {
+        text-align: center;
+        background-color: #659EC7;
+        color: white;
+>>>>>>> eb71d061cb066da858fcf7c87d1c94577c349246
     }
 
     .text-center {
@@ -45,10 +71,10 @@
  
 </style>
 
-<h1>Bucket List</h1>
+<h1>ViewBag.deleteSomeParks</h1>
 
 <div style="font-family:Arial">
-    <table class="table table-hover table-dark">
+    <table class="table">
     <tr>
         <th>Park Name</th>
         <th>City</th>
@@ -56,6 +82,8 @@
         <th>Latitude</th>
         <th>Longitude</th>
         <th>Web Address</th>
+        <th>Cross off Bucket List</th>
+        <th>Remove from List</th>
 
     </tr>
     @foreach (UserParks parks in Model)
@@ -69,8 +97,11 @@
             <td><a href="@parks.Url">@parks.Url</a></td>
 
             <td>
-                <a href="../ParksDb/UpdateParkVisited?id=@parks.UsersParkIds">Cross Off Bucket List</a>
+                <a href="../ParksDb/UpdateParkVisited?id=@parks.UsersParkIds">Cross Off</a>
 
+            </td>
+            <td>
+                <a href="../ParksDb/RemoveFromBucketList?id=@parks.UsersParkIds">Remove</a>
             </td>
 
         </tr>

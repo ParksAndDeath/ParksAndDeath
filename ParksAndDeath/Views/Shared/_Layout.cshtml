@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject ParksAndDeathDbContext Context
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ParksAndDeath</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">🏞️&☠️</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,23 +27,29 @@
                         </li>
 
                         @if (User.Identity.IsAuthenticated)
-                        {
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="DisplayBucketList">Your Bucket List!</a>
-                            </li>
+                                {
+                                    var isChecked = Helper.CheckForUserInfo(UserManager, User, Context);
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="Index">Display All Parks</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="ParksVisited">Your Visited Parks</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="DisplayBucketList">Your Bucket List!</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AddUserInput">Add User Input</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="ParksVisited">Your Visited Parks</a>
                             </li>
+                            if (isChecked == false)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AddUserInput">Tell Us About Yourself</a>
+                            </li>
+                            }
+                            if (isChecked == true)
+                            {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UpdateUserInfo">Update User Input</a>
                             </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UserPreferences">User Preferences</a>
                             </li>

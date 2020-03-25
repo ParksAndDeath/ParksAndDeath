@@ -5,27 +5,44 @@
 
 @model UserInfo
 
+    <style>
+        body {
+            background-image: url(https://www.elsetge.cat/myimg/f/150-1502145_yellowstone-national-park-colors.jpg);
+        }
+
+        h1 {
+            font-family: Cooper;
+            text-align: center;
+            background-color: aliceblue
+        }
+
+    </style>
+
 @Html.ValidationSummary()
 <h1>@ViewBag.userInfoMessage</h1>
 
-<form action="../User/AddUserInput" method="post">
-    @Html.LabelFor(m => m.Name)
-    @Html.ValidationMessageFor(m => m.Name)
-    <label for="Name">Name</label>
-    <input type="text" name="Name" value="" /><br />
-    @Html.LabelFor(m => m.Dob)
-    @Html.ValidationMessageFor(m => m.Dob)
-    <label for="Dob">Date of Birth</label>
-    <input type="date" name="Dob" value="" /><br />
-    @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
-"Select Gender", new { @class = "form-control" })<br />
-    @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),
-"Country", new { @class = "form-control" })<br />
-    <label for="Smoker">Smoker? (greater than 10 cigarettes a day)</label>
-    <input type="radio" name="Smoker" value="true" /><br />
-    <input type="hidden" name="Smoker" value="false" />
-    <label for="Drinker">Drinker? (greater than 3 drinks a day)</label>
-    <input type="radio" name="Drinker" value="true" /><br />
-    <input type="hidden" name="Drinker" value="false" />
-    <input type="submit" value="Add User Information" />
-</form>
+<div style="background-color:aliceblue">
+    <form action="../User/AddUserInput" method="post">
+        @Html.LabelFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+        <label for="Name">Name</label>
+        <input type="text" name="Name" value="" /><br />
+        @Html.LabelFor(m => m.Dob)
+        @Html.ValidationMessageFor(m => m.Dob)
+        <label for="Dob">Date of Birth</label>
+        Enter Your DOB: <input type="date" name="Dob" value="" /><br />
+        @Html.LabelFor(m => m.Gender)
+        @Html.ValidationMessageFor(m => m.Gender)
+        @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
+    "Select Gender", new { @class = "form-control" })<br />
+        @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),
+    "Country", new { @class = "form-control" })<br />
+        <label for="Smoker">Smoker? (greater than 10 cigarettes a day)</label>
+        <input type="radio" name="Smoker" value="true" /><br />
+        <input type="hidden" name="Smoker" value="false" />
+        <label for="Drinker">Drinker? (greater than 3 drinks a day)</label>
+        <input type="radio" name="Drinker" value="true" /><br />
+        <input type="hidden" name="Drinker" value="false" />
+        <input type="submit" value="Add User Information" />
+    </form>
+</div>

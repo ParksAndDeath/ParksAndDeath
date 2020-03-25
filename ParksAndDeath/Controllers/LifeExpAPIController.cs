@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ParksAndDeath.Models;
 
 namespace ParksAndDeath.Controllers
@@ -34,9 +35,9 @@ namespace ParksAndDeath.Controllers
         }
 
         //creates a list of available datetimes which can be chosen from and assigned to a park in the users bucketlist
-        public List<DateTime> CreateDatetimes(DateTime StartYear, DateTime EndYear, int daysApart)
+        public List<DateTime>  CreateDatetimes(DateTime StartYear, DateTime EndYear, int daysApart)
         {
-            List<DateTime> dateTimes = new List<DateTime>();
+           List<DateTime> dateTimes = new List<DateTime>();
             for (var dt = StartYear; dt < EndYear; dt = dt.AddDays(daysApart))
             {
                 dateTimes.Add(dt);
@@ -44,6 +45,20 @@ namespace ParksAndDeath.Controllers
 
             return dateTimes;
         }
+
+        public bool EnoughDates(int numDates, int numBklItems)
+        {
+            if(numDates >= numBklItems) 
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+
 
         //method to calculate remaining number of years to live if user is a drinker
         public int Drinker(Boolean drinker, int timeLeft)
@@ -139,7 +154,6 @@ namespace ParksAndDeath.Controllers
 
             if (found != null)
             {
-
                 //get the ageGroup that corresponds to the options available in the API using the calculated age in the database
                 string ageGroup = GetAgeGroup((int)found.Age);
 
@@ -156,15 +170,13 @@ namespace ParksAndDeath.Controllers
                 //parse the json into the appropriate class in our models
                 var life = await response.Content.ReadAsAsync<LifeRootobject>();
 
-                double timeLeft = life.fact[0].value.numeric;
+                int timeLeft = (int)Math.Round((double)life.fact[0].value.numeric);
 
-                int numYearsRemain = (int)Math.Ceiling(timeLeft);
+                timeLeft = Smoker((bool)found.Smoker, timeLeft);
 
-                numYearsRemain = Smoker((bool)found.Smoker, numYearsRemain);
+                timeLeft = Drinker((bool)found.Drinker, timeLeft);
 
-                numYearsRemain = Drinker((bool)found.Drinker, numYearsRemain);
-
-                TempData["lifeCalc"] = numYearsRemain;
+                TempData["lifeCalc"] = timeLeft;
                 return RedirectToAction("CheckUserPrefs");
             }
             ViewBag.message = "Oooops.... we don't have your Profile info.  Fill it out below:";
@@ -184,19 +196,28 @@ namespace ParksAndDeath.Controllers
                 
                 //Create a list of dateTimes to assign to parks bucket list based on start and end year entered by user
                 int daysApart = (prefFound.EndYear - prefFound.StartYear).Days;
+                /*List<DateTime>*/
+                var dates = CreateDatetimes(prefFound.StartYear, prefFound.EndYear, 14);
                 List<DateTime> dateTimes = CreateDatetimes(prefFound.StartYear, prefFound.EndYear, 14);
 
-                //dateTimes[0].
-                ParksSummaryWithUserPrefs newSummary = new ParksSummaryWithUserPrefs();
-                double numYears = (double)(TempData["lifeCalc"]);
-                int numYearsRemain = (int)TempData["LifeCalc"];
-                newSummary.numYearsRemaining = numYearsRemain;
-                newSummary.listOfDateTimes = dateTimes;
-                newSummary.preferences = prefFound;
-                newSummary.bucketListCount = count;
-                newSummary.bucketedParks = userParks;
-                TempData["BuckSummary"] = (ParksSummaryWithUserPrefs)newSummary;
-                return RedirectToAction("UserParkVisitsSummary");
+                if (EnoughDates(dates.Count, count) == true)
+                {
+                    ParksSummaryWithUserPrefs newSummary = new ParksSummaryWithUserPrefs();
+                    
+                    var numYearsRemain = (int)TempData["LifeCalc"];
+                    newSummary.numYearsRemaining = numYearsRemain;
+                    newSummary.listOfDateTimes = dateTimes;
+                    newSummary.preferences = prefFound;
+                    newSummary.bucketListCount = count;
+                    newSummary.bucketedParks = userParks;
+                    //TempData["BuckSummary"] = (ParksSummaryWithUserPrefs)newSummary;
+                    return View("UserParkVisitSummary", newSummary);
+                }
+                else
+                {
+                    ViewBag.deleteSomeParks = $"Please delete {count - dates.Count} from your bucket list to meet this goal, or Click the link to Update Your Park Visiting Preferences:";
+                    return RedirectToAction("DisplayBucketList", "ParksDb");
+                }
             }
 
             else
@@ -206,9 +227,10 @@ namespace ParksAndDeath.Controllers
             }
         }
 
-        public IActionResult UserParkVisitSummary()
+        public IActionResult UserParkVisitSummary(ParksSummaryWithUserPrefs summaryInfo)
         {
-            return View(TempData["BuckSummary"]);
+            //ParksSummaryWithUserPrefs summary = (ParksSummaryWithUserPrefs)TempData["BucksSummary"];
+            return View(summaryInfo);
         }
 
     }

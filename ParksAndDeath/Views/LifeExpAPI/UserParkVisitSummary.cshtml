@@ -5,13 +5,37 @@
 
 @model ParksSummaryWithUserPrefs
 
-<h1>Bucket Listed Items with Dates to visit</h1>
+<h1>SELECT FROM THE AVAILABLE DATE BELOW FOR EACH PARK</h1>
 
-@foreach (UserParks park in @Model.bucketedParks)
-{
-    <p>@park.ParkName</p>
-    <p>@park.State</p>
-    <p>@park.City</p>
-    <p>@park.Url</p>
-}
+<form action="../LifeExpAPI/SummaryParksDates" method="post">
+    <table>
+        <tr>
+            <th>Park Name</th>
+            <th>Park City</th>
+            <th>Park State</th>
+            <th>Specify a Date</th>
+        </tr>
+    @foreach (UserParks park in Model.bucketedParks)
+    {
+    <tr>
+        <td><input type="text" name="ParkName" value=@park.ParkName readonly /></td>
+        <td><input type="text" name="City" value=@park.City readonly /></td>
+        <td><input type="text" name="ParkState" value=@park.State readonly /></td>
+        <td>
+            <select>
+                
+            
+                @foreach (DateTime date in Model.listOfDateTimes)
+                {
+                    <option value=@date>@date</option>
+                }
+            </select>
+            
+        </td>
+    </tr>
+        
+    }
+    </table>
+<input type="submit"  value="Submit Entries" />
+    </form>
 

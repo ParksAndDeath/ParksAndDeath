@@ -36,10 +36,12 @@ namespace ParksAndDeath.Controllers
             if(ModelState.IsValid)
             {
                 DateTime dob = (DateTime)userInfo.Dob;
-                int age = 0;
-                age = DateTime.Now.Year - dob.Year;
-                if (DateTime.Now.DayOfYear < dob.DayOfYear)
-                    age = age - 1;
+                var today = DateTime.Today;
+                var age = today.Year - dob.Year;
+                if (dob.Date > today.AddYears(-age))
+                {
+                    age--;
+                }
 
                 userInfo.Age = age;
                 userInfo.OwnerId = id;

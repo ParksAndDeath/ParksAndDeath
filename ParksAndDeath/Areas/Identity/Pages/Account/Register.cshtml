@@ -1,0 +1,59 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<style>
+    body {
+        background-image: url("https://i.pinimg.com/originals/54/c6/f1/54c6f11fcf64d182a7f97fc8f31a1382.png");
+        background-repeat: no-repeat;
+        background-position: right center;
+        margin-right: 200px;
+     
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-10">
+        <h2 style="font-family: Cooper">Parks and Death</h2>
+        <br />
+        <h4> &#127794; View a list of US National Parks</h4>
+        <br />
+        <h4> &#128059; Add National Parks to your bucket list</h4>
+        <br />
+        <h4> &#127966; Cross off National Parks from your bucket list</h4>
+        <br />
+        <h4> &#128128; Calculate your life expectancy</h4>
+        <img src="https://i.pinimg.com/originals/cc/57/fa/cc57fa91109d9a69c970de7092448a3c.jpg" alt="park" style="width:300px;height:250px;" />
+    </div>
+        
+  </div>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
