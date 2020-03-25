@@ -101,13 +101,12 @@ namespace ParksAndDeath.Controllers
             try
             {
                 UserPreferences prefFound = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
-                TempData["usersPreferences"] = prefFound;
                 return RedirectToAction("UseCurrentPreferences");
             }
             catch
             {
                 ViewBag.messageforPrefs = "PLEASE ENTER YOUR VISITING PREFERENCES BELOW:";
-                return View("AddUserInput");
+                return View("UserPreferences");
             }
             
         }
@@ -138,10 +137,37 @@ namespace ParksAndDeath.Controllers
         [HttpGet]
         public IActionResult UseCurrentPreferences()
         {
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            UserPreferences prefFound = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
+
             //get the user preference object obtained and stored in tempdata object and cast it as a UserPreferences object
-            UserPreferences currentPrefs = (UserPreferences)TempData["preferenceUpdate"];
+            //UserPreferences currentPrefs = (UserPreferences)TempData["preferenceUpdate"];
             ViewBag.messageforPrefs = "PLEASE UPDATE YOUR VISITING PREFERENCES BELOW:";
-            return View(currentPrefs);
+            return View("UseCurrentPreferences",prefFound);
+            //return View(currentPrefs);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUserPreferences(UserPreferences updatedPrefs)
+        {
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            UserPreferences found = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
+
+            if (found != null)
+            {
+                found.StartYear = updatedPrefs.StartYear;
+                found.EndYear = updatedPrefs.EndYear;
+                found.Frequency = updatedPrefs.Frequency;
+                _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Update(found);
+                _context.SaveChanges();
+                return RedirectToAction("LifeExpectancyCalc", "LifeExpAPI");
+            }
+            else
+            {
+                ViewBag.messageforPrefs = "NO PREFERENCES FOUND.... PLEASE ADD YOUR PARK VISIT PREFERENCES BELOW";
+                return View("UserPreferences");
+            }
         }
     }
 }

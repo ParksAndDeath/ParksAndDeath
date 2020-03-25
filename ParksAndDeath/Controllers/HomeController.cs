@@ -35,9 +35,9 @@ namespace ParksAndDeath.Controllers
                 //checks if the user has their information filled in and if they do, it sends them to the parks list to fill their bucket list
                 try
                 {
-                    var userBl = _context.UserParks.Where(b => b.CurrentUserId == userId).First();
+                    //var userBl = _context.UserParks.Where(b => b.CurrentUserId == userId).ToList();
                     var userInfo = _context.UserInfo.Where(x => x.OwnerId == userId).First();
-                    if (userBl != null && userInfo != null)
+                    if (/*userBl != null && */userInfo != null)
                     {
                         ViewBag.userName = userInfo.Name;
                         return View("FullUser"); //buttons to see parks, button to see BucketList, update user info button. parks youve visited button

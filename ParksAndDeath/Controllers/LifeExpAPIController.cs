@@ -34,10 +34,10 @@ namespace ParksAndDeath.Controllers
         }
 
         //creates a list of available datetimes which can be chosen from and assigned to a park in the users bucketlist
-        public List<DateTime> CreateDatetimes(DateTime StartYear, DateTime EndYear, int frequency)
+        public List<DateTime> CreateDatetimes(DateTime StartYear, DateTime EndYear, int daysApart)
         {
             List<DateTime> dateTimes = new List<DateTime>();
-            for (var dt = StartYear; dt < EndYear; dt = dt.AddDays(frequency))
+            for (var dt = StartYear; dt < EndYear; dt = dt.AddDays(daysApart))
             {
                 dateTimes.Add(dt);
             }
@@ -183,10 +183,12 @@ namespace ParksAndDeath.Controllers
                 List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == id).Where(y => y.ParkVisited == false).ToList();
                 
                 //Create a list of dateTimes to assign to parks bucket list based on start and end year entered by user
-                List<DateTime> dateTimes = CreateDatetimes(prefFound.StartYear, prefFound.EndYear, prefFound.Frequency);
+                int daysApart = (prefFound.EndYear - prefFound.StartYear).Days;
+                List<DateTime> dateTimes = CreateDatetimes(prefFound.StartYear, prefFound.EndYear, 14);
 
+                //dateTimes[0].
                 ParksSummaryWithUserPrefs newSummary = new ParksSummaryWithUserPrefs();
-                double numYears = (double)(TempData["lifCalc"]);
+                double numYears = (double)(TempData["lifeCalc"]);
                 int numYearsRemain = (int)TempData["LifeCalc"];
                 newSummary.numYearsRemaining = numYearsRemain;
                 newSummary.listOfDateTimes = dateTimes;
