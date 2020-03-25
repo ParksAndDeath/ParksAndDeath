@@ -39,11 +39,11 @@ namespace ParksAndDeath.Controllers
                 var userBl = CheckUserInfo(_context, userId);
                 var userInfo = CheckBucketList(_context, userId);
 
-                if (userBl != null && userInfo != null)
+                if (userBl != false && userInfo != false)
                 {
                     return View("FullUser"); //buttons to see parks, button to see BucketList, update user info button. parks youve visited button
                 }
-                if (userInfo != null)
+                if (userInfo != false)
                 {
                     return RedirectToAction("Index", "ParksDb");
 
