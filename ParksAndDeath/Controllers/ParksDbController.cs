@@ -101,7 +101,7 @@ namespace ParksAndDeath.Controllers
             return RedirectToAction("Index");
         }
 
-        //need to get this to work
+        
        public IActionResult RemoveFromBucketList(int id)
         {
             var FullList = new Parks();         

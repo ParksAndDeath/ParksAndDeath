@@ -4,18 +4,33 @@
 }
 
 @model UserInfo
+    <style>
+        h1{
+            font-family:Cooper;
+        }
+        body {
+            background-image: url("https://i.pinimg.com/564x/26/4b/b3/264bb31544ea00649644391b69e7c97b.jpg");
+        }
+    </style>
 
 <h1>Update Your Info Below</h1>
 
-<form action="../User/UpdateUserInfo" method="post">
-    <label for="name">Name</label>
-    <input type="text" name="name" placeholder="@Model.Name" value="" /><br />
-    <label for="Smoker">Smoker? (greater than 10 cigarettes a day)</label>
-    <input type="radio" name="Smoker" value="true" /><br />
-    <input type="hidden" name="Smoker" value="false" />
-    <label for="Drinker">Drinker? (greater than 3 drinks a day)</label>
-    <input type="radio" name="Drinker" value="true" /><br />
-    <input type="hidden" name="Drinker" value="false" />
-    <input type="submit" value="Update User Information" />
-</form>
+<div style="background-color: white">
+    <form action="../User/UpdateUserInfo" method="post">
+        <label for="name">Name</label>
+        <input type="text" name="name" placeholder="@Model.Name" value="" /><br />
+        <label for="Smoker">Smoker? (greater than 10 cigarettes a day)</label>
+        <input type="radio" name="Smoker" value="true" /><br />
+        <input type="hidden" name="Smoker" value="false" />
+        <label for="Drinker">Drinker? (greater than 3 drinks a day)</label>
+        <input type="radio" name="Drinker" value="true" /><br />
+        <input type="hidden" name="Drinker" value="false" />
+        <input type="submit" value="Update User Information" />
+        <br />
+        <br />
+        <img src="https://i.pinimg.com/236x/6c/91/84/6c918488a9219124e041bc8b139d28d8.jpg" alt="Ron Swanson" />
+
+    </form>
+</div>
+
 

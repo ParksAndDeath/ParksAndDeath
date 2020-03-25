@@ -3,23 +3,53 @@
     ViewData["Title"] = "FullUser";
 }
 
-<h1>FullUser</h1>
 
 
+<style>
+    body {
+        background-image: url("https://i.pinimg.com/564x/81/30/f1/8130f1f7a47622585e2b1920652c0f24.jpg");
+    }
 
-<div>
-    <p>Lets add any parks you might have missed to your bucket list?</p>
-    <a class="btn btn-primary" href="../ParksDb/Index">View all parks</a>
-</div>
-<div>
-    <p>Would you like to remove any parks or cross some off of your bucket list?</p>
-    <a class="btn btn-primary" href="../ParksDb/DisplayBucketList">View bucket list</a>
-</div>
-<div>
-    <p>Would you like to change or add on to your info?</p>
-    <a class="btn btn-primary" href="../User/UpdateUserInfo">Update My Info</a>
-</div>
-<div>
-    <p>Marked a park as visited but want to go again or as an accident go here!</p>
-    <a class="btn btn-primary" href="../ParksDb/UpdateParkVisited">Parks you have visited</a>
-</div>
+    h2 {
+        background-color: cadetblue;
+        font-family: Cooper;
+    }
+
+    .container{
+        background-color:azure;
+    }
+</style>
+
+<h2>Click on any of the links below to be re-directed to that page!</h2>
+
+
+<section class="part2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="../ParksDb/Index">
+                    <img alt="" class="resize-image center-block" id="image1" src="https://i.pinimg.com/236x/69/b9/bf/69b9bf1cf3ec6592e1d975607f3d16db.jpg" />
+                    <p class="text-center">Here you can add more parks to your bucket list</p>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="../ParksDb/DisplayBucketList">
+                    <img alt="" class="resize-image center-block" id="image2" src="https://i.pinimg.com/236x/fd/b5/15/fdb515ada65f611026e919e68b8f396b.jpg" />
+                    <p class="text-center">Here you can cross off or remove parks from your bucket list</p>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="../ParksDb/ParksVisited">
+                    <img alt="" class="resize-image center-block" id="image3" src="https://i.pinimg.com/236x/26/bb/c7/26bbc7824c9ffa4ccf1fa70ef74ec330.jpg" />
+                    <p class="text-center">Here you can view the parks you have visited/crossed off your bucket list</p>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="../User/UpdateUserInfo">
+                    <img alt="" class="resize-image center-block" id="image4" src="https://i.pinimg.com/236x/dd/51/db/dd51dbc2d5fe3bff249bda7a2547a36c.jpg" />
+                    <p class="text-center">Here you can update your personal info</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
