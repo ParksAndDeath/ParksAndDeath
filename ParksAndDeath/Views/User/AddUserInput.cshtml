@@ -27,7 +27,7 @@
     </style>
 
 @Html.ValidationSummary()
-<h1>Add User Information</h1>
+<h1>@ViewBag.userInfoMessage</h1>
 
 <div style="background-color:aliceblue">
     <form action="../User/AddUserInput" method="post">
@@ -41,8 +41,6 @@
         Enter Your DOB: <input type="date" name="Dob" value="" /><br />
         @Html.LabelFor(m => m.Gender)
         @Html.ValidationMessageFor(m => m.Gender)
-        <label for="Age">Age</label>
-        <input type="number" name="Age" value="" /><br />
         @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
     "Select Gender", new { @class = "form-control" })<br />
         @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),

@@ -72,6 +72,7 @@ namespace ParksAndDeath.Controllers
         public IActionResult DisplayBucketList()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ViewBag.deleteSomeParks = "Bucket List";
             return View(_context.UserParks.OrderBy(x => x.ParkName).Where(x => x.CurrentUserId == id).Where(y => y.ParkVisited == false).ToList());
         }
 
@@ -100,8 +101,6 @@ namespace ParksAndDeath.Controllers
 
             return RedirectToAction("Index");
         }
-
-        
        public IActionResult RemoveFromBucketList(int id)
         {
             var FullList = new Parks();         
@@ -115,7 +114,5 @@ namespace ParksAndDeath.Controllers
                 
                 return RedirectToAction("DisplayBucketList");         
         }
-
-     
     }
 }

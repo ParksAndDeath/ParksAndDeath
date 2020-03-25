@@ -7,11 +7,21 @@
 <h1>Please Update Your Park Visit Itenerary Preferences below</h1>
 
 <form action="../User/UpdateUserPreferences" method="post">
-    <br /><input type="date" name="StartYear" placeholder="@Model.StartYear" value="" /><br />
-    When would you like to have your bucket list completed by:<br /><input type="date" name="EndYear" @Model.EndYear value="" /><br /><br />
-    <input type="range" min="0" max="20" name="Frequency" step="1" list="tickMarks" value="@Model.Frequency" oninput="range_Frequency_disp.value">
-    <output id="range_Frequency_disp"></output>
-    <br />
-    <input type="submit" value="Update Preferences" />
+    <table>
+        <tr>
+            <th>Previous Start Date</th>
+            <th>Previous End Date</th>
+            <th>New Start Date</th>
+            <th>New End Date</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="PreviousStart" value=@Model.StartYear.ToString() readonly /></td>
+            <td><input type="text" name=" = PreviousEnd" value=@Model.EndYear.ToString() readonly/></td>
+            <td><input type="date" name="StartYear" value="" /></td>
+            <td><input type="date" name="EndYear" value="" /></td>
+        </tr>
+    </table>
+        <input type="hidden" name="Frequency" value="@Model.Frequency">
+        <input type="submit" value="Update Preferences" />
 </form>
 

@@ -23,7 +23,8 @@ namespace ParksAndDeath.Controllers
         [HttpGet]
         public IActionResult AddUserInput()
         {
-            return View(new UserInfo());
+            ViewBag.userInfoMessage = "PLEASE TAKE A MOMENT AND ENTER THE INFORMATION BELOW:";
+            return View();
         }
 
         [HttpPost]
@@ -32,24 +33,29 @@ namespace ParksAndDeath.Controllers
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             //checks if the user already has info
 
-            try
+            if(ModelState.IsValid)
             {
-                var found = _context.UserInfo.Where(x => x.OwnerId == id).First();
-
-            }
-            catch
-            {
-                if (ModelState.IsValid)
+                DateTime dob = (DateTime)userInfo.Dob;
+                var today = DateTime.Today;
+                var age = today.Year - dob.Year;
+                if (dob.Date > today.AddYears(-age))
                 {
-                    userInfo.OwnerId = id;
-                    _context.UserInfo.Add(userInfo);
-                    _context.SaveChanges();
-                    return View("ViewUserProfileInformation", userInfo);
+                    age--;
                 }
+
+                userInfo.Age = age;
+                userInfo.OwnerId = id;
+                _context.UserInfo.Add(userInfo);
+                _context.SaveChanges();
+                ViewBag.userName = (string)userInfo.Name;
+                return RedirectToAction("Index", "Home");
+            }
+
+            else 
+            {
+                ViewBag.userInfoMessage = "SOMETHING WENT WRONG.... PLEASE MAKE SURE ALL INFORMATION IS ENTERED BELOW....";
                 return View("AddUserInput");
             }
-            return RedirectToAction("UpdateUserInfo");
-
         }
 
         [HttpGet]
@@ -63,6 +69,7 @@ namespace ParksAndDeath.Controllers
                 return View(found);
             }
 
+            ViewBag.updateUserError = "USER NOT FOUND... PLEASE CLICK LINK TO ADD USER INFO BEFORE TRYING TO UPDATE";
             return RedirectToAction("UpdateUserInfo");
         }
 
@@ -77,28 +84,39 @@ namespace ParksAndDeath.Controllers
                 found.Name = userinfo.Name;
                 found.Smoker = userinfo.Smoker;
                 found.Drinker = userinfo.Drinker;
+                found.Country = userinfo.Country;
                 _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Update(found);
                 _context.SaveChanges();
-                return View("ViewUserProfileInformation", found);
+                ViewBag.userName = (string)found.Name;
+                return View("FullUser", "Home");
             }
-
+            ViewBag.updateUserError = "USER NOT FOUND... PLEASE CLICK LINK TO ADD USER INFO BEFORE TRYING TO UPDATE";
             return View("UpdateUserInfo");
         }
 
-        public IActionResult ViewUserProfileInformation(UserInfo userInfo)
-        {
-            return View(userInfo);
-        }
         [HttpGet]
         public IActionResult UserPreferences()
         {
 
-            return View();
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            try
+            {
+                UserPreferences prefFound = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
+                return RedirectToAction("UseCurrentPreferences");
+            }
+            catch
+            {
+                ViewBag.messageforPrefs = "PLEASE ENTER YOUR VISITING PREFERENCES BELOW:";
+                return View("UserPreferences");
+            }
+            
         }
+
         [HttpPost]
         public IActionResult UserPreferences(UserPreferences userPreferences)
         {
+
             //getting id of currently logged in user
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -110,10 +128,9 @@ namespace ParksAndDeath.Controllers
 
                 //Adding the specified UserPreferences from the form to the db
                 _context.UserPreferences.Add(userPreferences);
-
-
                 _context.SaveChanges();
-                return View("ViewUserPreferences", userPreferences);
+
+                return RedirectToAction("LifeExpectancyCalc", "LifeExpAPI");
             }
             return View();
         }
@@ -122,9 +139,37 @@ namespace ParksAndDeath.Controllers
         [HttpGet]
         public IActionResult UseCurrentPreferences()
         {
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            UserPreferences prefFound = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
+
             //get the user preference object obtained and stored in tempdata object and cast it as a UserPreferences object
-            UserPreferences currentPrefs = (UserPreferences)TempData["CurrentPrefs"];
-            return View(currentPrefs);
+            //UserPreferences currentPrefs = (UserPreferences)TempData["preferenceUpdate"];
+            ViewBag.messageforPrefs = "PLEASE UPDATE YOUR VISITING PREFERENCES BELOW:";
+            return View("UseCurrentPreferences",prefFound);
+            //return View(currentPrefs);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUserPreferences(UserPreferences updatedPrefs)
+        {
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            UserPreferences found = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
+
+            if (found != null)
+            {
+                found.StartYear = updatedPrefs.StartYear;
+                found.EndYear = updatedPrefs.EndYear;
+                found.Frequency = updatedPrefs.Frequency;
+                _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Update(found);
+                _context.SaveChanges();
+                return RedirectToAction("LifeExpectancyCalc", "LifeExpAPI");
+            }
+            else
+            {
+                ViewBag.messageforPrefs = "NO PREFERENCES FOUND.... PLEASE ADD YOUR PARK VISIT PREFERENCES BELOW";
+                return View("UserPreferences");
+            }
         }
     }
 }
