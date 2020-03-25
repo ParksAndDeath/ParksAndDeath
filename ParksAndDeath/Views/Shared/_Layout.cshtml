@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject ParksAndDeathDbContext Context
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,27 +27,35 @@
                         </li>
 
                         @if (User.Identity.IsAuthenticated)
-                        {
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="Index">Display All Parks</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="DisplayBucketList">Your Bucket List!</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="ParksVisited">Your Visited Parks</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AddUserInput">Add User Input</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UpdateUserInfo">Update User Input</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UserPreferences">User Preferences</a>
-                        </li>
-                        
+                                {
+                                    var isChecked = Helper.CheckForUserInfo(UserManager, User, Context);
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="Index">Display All Parks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="DisplayBucketList">Your Bucket List!</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ParksDb" asp-action="ParksVisited">Your Visited Parks</a>
+                            </li>
+                            if (isChecked == false)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AddUserInput">Add User Input</a>
+                            </li>
+                            }
+                            if (isChecked == true)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UpdateUserInfo">Update User Input</a>
+                            </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="LifeExpAPI" asp-action="Index">TIME LEFT</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UserPreferences">User Preferences</a>
+                            </li>
                         }
 
                     </ul>
