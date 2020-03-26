@@ -118,8 +118,5 @@ namespace ParksAndDeath.Controllers
                 
                 return RedirectToAction("DisplayBucketList");         
         }
-
- 
-     
     }
 }

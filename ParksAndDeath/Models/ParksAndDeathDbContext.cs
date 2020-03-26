@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace ParksAndDeath.Models
 {
     public partial class ParksAndDeathDbContext : DbContext
     {
+        public IConfiguration Configuration { get; }
         public ParksAndDeathDbContext()
         {
         }
@@ -32,7 +34,7 @@ namespace ParksAndDeath.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:ParksAndDeath.database.windows.net,1433;Database=ParksAndDeathDb;User ID=parksanddeath;Password=Bears1234!;Encrypt=true;Connection Timeout=30");
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             }
         }
 
