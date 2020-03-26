@@ -39,8 +39,9 @@
                 <th>New End Date</th>
             </tr>
             <tr>
-                <td><input type="date" name="StartYear" value="" /></td>
-                <td><input type="date" name="EndYear" value="" /></td>
+                @{ var myDate = DateTime.Now.ToString("yyyy-MM-dd");}
+                <td><input type="date" name="StartYear" min="@myDate" /></td>
+                <td><input type="date" min="@myDate" name="EndYear" value="" /></td>
             </tr>
         </table>
         <input type="hidden" name="frequency" value="1" /><br />

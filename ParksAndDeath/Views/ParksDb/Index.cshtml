@@ -61,6 +61,7 @@
     </tr>
     @foreach (Parks park in Model)
     {
+<<<<<<< HEAD
     <tr>
         <td>@park.FullName</td>
         <td>@park.City</td>
@@ -85,5 +86,35 @@
 
     </tr>
 
+=======
+        <tr>
+            <td>@park.FullName</td>
+            <td>@park.City</td>
+            <td>@park.States</td>
+            <td>@park.Latitude</td>
+            <td>@park.Longitude</td>
+            <td><a href="@park.Url">@park.Url</a></td>
+            <td>
+                <form action="../ParksDb/AddParkToBuckList" method="post">
+                    <input type="hidden" name="name" value="@park.FullName" />
+                    <input type="hidden" name="city" value="@park.City" />
+                    <input type="hidden" name="state" value="@park.States" />
+                    <input type="hidden" name="latitude" value="@park.Latitude" />
+                    <input type="hidden" name="longitude" value="@park.Longitude" />
+                    <input type="hidden" name="url" value="@park.Url" />
+                    <input type="hidden" name="parkcode" value="@park.ParkCode" />
+                    <input type="submit" class="btn btn-outline-primary" value="Add to Bucket List" />
+                    <a class="btn btn-outline-primary" href="../ParksDb/AddParkToBuckList?id=@park.ParksId&visited=true&name=@park.FullName&city=@park.City&state=@park.States&latitude=@park.Latitude&longitude=@park.Longitude&url=@park.Url&parkcode=@park.ParkCode">Mark as Visited</a>
+                </form>
+
+            </td>
+
+        </tr>
+
+>>>>>>> 829c53290f89192a2318af21f50b2ed2813dbd8f
     }
 </table>
+<p>If you have populated your bucket list lets head over there and see if there are any changes you would like to make and move on to the next step!</p>
+<a id="buttonalign" href="../ParksDb/DisplayBucketList" style="background-color:white;color:blue;float:right" class="btn btn-outline-primary;">Bucket List</a>
+<br />
+<br />
