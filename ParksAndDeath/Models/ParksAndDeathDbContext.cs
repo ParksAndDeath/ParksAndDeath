@@ -181,6 +181,8 @@ namespace ParksAndDeath.Models
                     .HasColumnName("gender")
                     .HasMaxLength(10);
 
+                entity.Property(e => e.LifeExpectancy).HasColumnName("lifeExpectancy");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
@@ -246,6 +248,10 @@ namespace ParksAndDeath.Models
                 entity.Property(e => e.Url)
                     .HasColumnName("url")
                     .HasMaxLength(100);
+
+                entity.Property(e => e.VisitScheduled)
+                    .HasColumnName("visitScheduled")
+                    .HasColumnType("datetime");
 
                 entity.HasOne(d => d.CurrentUser)
                     .WithMany(p => p.UserParks)
