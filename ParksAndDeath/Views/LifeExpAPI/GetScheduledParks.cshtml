@@ -1,7 +1,10 @@
 ﻿
 @{
-    ViewData["Title"] = "DisplayBucketList";
+    ViewData["Title"] = "GetScheduledParks";
 }
+
+<h1>Scheduled Parks</h1>
+
 @model List<UserParks>
 
 
@@ -12,19 +15,11 @@
     }
 
     h1 {
-<<<<<<< HEAD
-
-=======
->>>>>>> 44ca786bad1e9e4485ee8527988f786f9e0f0148
         font-family: Cooper;
         font-weight: bold;
         font-size: 75px;
         color: brown;
         text-align: center;
-<<<<<<< HEAD
-
-=======
->>>>>>> 44ca786bad1e9e4485ee8527988f786f9e0f0148
         background-color: #0094ff;
         font-family: Cooper;
         color: white;
@@ -48,10 +43,6 @@
         text-align: center;
         background-color: #659EC7;
         color: white;
-<<<<<<< HEAD
-
-=======
->>>>>>> 44ca786bad1e9e4485ee8527988f786f9e0f0148
     }
 
     .text-center {
@@ -72,7 +63,6 @@
         padding: 50px;
         background-color: #ffffffff;
     }
-   
 </style>
 
 <h1>@ViewBag.deleteSomeParks</h1>
@@ -83,34 +73,23 @@
         <th>Park Name</th>
         <th>City</th>
         <th>State</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
         <th>Web Address</th>
-        <th>Cross off Bucket List</th>
-        <th>Remove from List</th>
-
+        <th>Mark As Visited</th>
     </tr>
     @foreach (UserParks parks in Model)
     {
-        <tr>
-            <td>@parks.ParkName</td>
-            <td>@parks.City</td>
-            <td>@parks.State</td>
-            <td>@parks.Latitude</td>
-            <td>@parks.Longitude</td>
-            <td><a href="@parks.Url">@parks.Url</a></td>
+    <tr>
+        <td>@parks.ParkName</td>
+        <td>@parks.City</td>
+        <td>@parks.State</td>
+        <td><a href="@parks.Url">@parks.Url</a></td>
 
-            <td>
-                <a href="../ParksDb/UpdateParkVisited?id=@parks.UsersParkIds">Cross Off</a>
+        <td>
+            <a href="../ParksDb/UpdateParkVisited?id=@parks.UsersParkIds">Cross Off</a>
 
-            </td>
-            <td>
-                <a href="../ParksDb/RemoveFromBucketList?id=@parks.UsersParkIds">Remove</a>
-            </td>
-
-        </tr>
+        </td>
+    </tr>
     }
 </table>
-    <a href="../User/UserPreferences">Setup Visit Plan for this List of Parks</a>
 </div>
 

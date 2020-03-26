@@ -38,11 +38,16 @@
         
         @Html.ValidationMessageFor(m => m.Dob)
         <label for="Dob">Date of Birth</label>
+<<<<<<< HEAD
          <input type="date" name="Dob" value="" /><br />
         
+=======
+        Enter Your DOB: <input type="date" name="Dob" value="" /><br />
+>>>>>>> 44ca786bad1e9e4485ee8527988f786f9e0f0148
         @Html.ValidationMessageFor(m => m.Gender)
         @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
     "Select Gender", new { @class = "form-control" })<br />
+        @Html.LabelFor(m => m.Country)
         @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),
     "Country", new { @class = "form-control" })<br />
         <label for="Smoker">Smoker? (greater than 10 cigarettes a day)</label>
