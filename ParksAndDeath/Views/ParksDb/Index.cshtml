@@ -77,7 +77,22 @@
                         <input type="hidden" name="url" value="@park.Url" />
                         <input type="hidden" name="parkcode" value="@park.ParkCode" />
                         <input type="submit" class="btn btn-outline-primary" value="Add to Bucket List" />
+                        <a href="../ParksDb/UpdateParkVisited?id=@park.ParksId">Cross Off</a>
                     </form>
+                  
+                </td>
+                <td>
+                    @*<form action="../ParksDb/Index?id=@park.ParksId" method="post">
+                        <input type="hidden" name="name" value="@park.FullName" />
+                        <input type="hidden" name="city" value="@park.City" />
+                        <input type="hidden" name="state" value="@park.States" />
+                        <input type="hidden" name="latitude" value="@park.Latitude" />
+                        <input type="hidden" name="longitude" value="@park.Longitude" />
+                        <input type="hidden" name="url" value="@park.Url" />
+                        <input type="hidden" name="parkcode" value="@park.ParkCode" />
+                        
+                       <input type="submit" class="btn btn-outline-primary" value="Mark as Visited" />
+                    </form>*@
                 </td>
             </tr>
 

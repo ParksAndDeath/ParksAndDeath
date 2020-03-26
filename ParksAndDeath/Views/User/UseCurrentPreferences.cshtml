@@ -4,24 +4,44 @@
 }
 
 @model UserPreferences
-<h1>Please Update Your Park Visit Itenerary Preferences below</h1>
 
-<form action="../User/UpdateUserPreferences" method="post">
-    <table>
-        <tr>
-            <th>Previous Start Date</th>
-            <th>Previous End Date</th>
-            <th>New Start Date</th>
-            <th>New End Date</th>
-        </tr>
-        <tr>
-            <td><input type="text" name="PreviousStart" value=@Model.StartYear.ToString() readonly /></td>
-            <td><input type="text" name=" = PreviousEnd" value=@Model.EndYear.ToString() readonly/></td>
-            <td><input type="date" name="StartYear" value="" /></td>
-            <td><input type="date" name="EndYear" value="" /></td>
-        </tr>
-    </table>
+
+<style>
+    body {
+        background-image: url(https://wallpapercave.com/wp/wp2177925.jpg);
+    }
+
+    h1 {
+        font-family: Cooper;
+        text-align: center;
+    }
+
+    div{
+        background-color: azure;
+        
+    }
+</style>
+
+<h1>Please Update Your Park Visit Itinerary Preferences Below</h1>
+
+
+<div>
+    <form action="../User/UpdateUserPreferences" method="post">
+        <table>
+            <tr>
+                <th>Previous Start Date</th>
+                <th>Previous End Date</th>
+                <th>New Start Date</th>
+                <th>New End Date</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="PreviousStart" value=@Model.StartYear.ToString() readonly /></td>
+                <td><input type="text" name=" = PreviousEnd" value=@Model.EndYear.ToString() readonly /></td>
+                <td><input type="date" name="StartYear" value="" /></td>
+                <td><input type="date" name="EndYear" value="" /></td>
+            </tr>
+        </table>
         <input type="hidden" name="Frequency" value="@Model.Frequency">
         <input type="submit" value="Update Preferences" />
-</form>
-
+    </form>
+</div>

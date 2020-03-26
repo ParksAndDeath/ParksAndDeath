@@ -33,13 +33,13 @@
     <form action="../User/AddUserInput" method="post">
         @Html.LabelFor(m => m.Name)
         @Html.ValidationMessageFor(m => m.Name)
-        <label for="Name">Name</label>
+       
         <input type="text" name="Name" value="" /><br />
-        @Html.LabelFor(m => m.Dob)
+        
         @Html.ValidationMessageFor(m => m.Dob)
         <label for="Dob">Date of Birth</label>
-        Enter Your DOB: <input type="date" name="Dob" value="" /><br />
-        @Html.LabelFor(m => m.Gender)
+         <input type="date" name="Dob" value="" /><br />
+        
         @Html.ValidationMessageFor(m => m.Gender)
         @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
     "Select Gender", new { @class = "form-control" })<br />

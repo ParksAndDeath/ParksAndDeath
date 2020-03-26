@@ -36,8 +36,8 @@ namespace ParksAndDeath.Controllers
 
                 //checks if the user has their information filled in and if they do, it sends them to the parks list to fill their bucket list
 
-                var userBl = CheckUserInfo(_context, userId);
-                var userInfo = CheckBucketList(_context, userId);
+                var userInfo = CheckUserInfo(_context, userId);
+                var userBl = CheckBucketList(_context, userId);
 
                 if (userBl != false && userInfo != false)
                 {
@@ -46,6 +46,7 @@ namespace ParksAndDeath.Controllers
                 if (userInfo != false)
                 {
                     return RedirectToAction("Index", "ParksDb");
+
 
                 }
                 return RedirectToAction("AddUserInput", "User");
@@ -69,7 +70,7 @@ namespace ParksAndDeath.Controllers
         {
             try
             {
-                context.UserParks.Where(x => x.CurrentUserId == id).First();
+                context.UserParks.Where(x => x.CurrentUserId == id).Where(y => y.ParkVisited == false).First();
                 return true;
             }
             catch
