@@ -114,21 +114,5 @@ namespace ParksAndDeath.Controllers
                 
                 return RedirectToAction("DisplayBucketList");         
         }
-
-        //public IActionResult AddParkToVisitedList()
-        //{
-        //    string Userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //    List<UserParks> userParks = _context.UserParks.OrderBy(w => w.ParkName).Where(x => x.CurrentUserId == Userid).Where(y => y.ParkVisited == true).ToList();
-        //    //var VisitedParks = new Parks();
-        //    //UserParks found = _context.UserParks.Where(x => x.UsersParkIds == id).First();
-
-        //    //if (ModelState.IsValid)
-        //    //{
-        //    //    _context.UserParks.Add(found);
-        //    //    _context.SaveChanges();
-        //    //    return RedirectToAction("Index");
-        //    //}
-        //    return RedirectToAction("Index");
-        //}
     }
 }
