@@ -89,7 +89,7 @@ namespace ParksAndDeath.Controllers
                 _context.Update(found);
                 _context.SaveChanges();
                 ViewBag.userName = (string)found.Name;
-                return View("FullUser", "Home");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.updateUserError = "USER NOT FOUND... PLEASE CLICK LINK TO ADD USER INFO BEFORE TRYING TO UPDATE";
             return View("UpdateUserInfo");

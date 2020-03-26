@@ -39,10 +39,10 @@
         @Html.ValidationMessageFor(m => m.Dob)
         <label for="Dob">Date of Birth</label>
         Enter Your DOB: <input type="date" name="Dob" value="" /><br />
-        @Html.LabelFor(m => m.Gender)
         @Html.ValidationMessageFor(m => m.Gender)
         @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
     "Select Gender", new { @class = "form-control" })<br />
+        @Html.LabelFor(m => m.Country)
         @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),
     "Country", new { @class = "form-control" })<br />
         <label for="Smoker">Smoker? (greater than 10 cigarettes a day)</label>

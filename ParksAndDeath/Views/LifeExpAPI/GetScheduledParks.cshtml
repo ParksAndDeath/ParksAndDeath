@@ -1,7 +1,10 @@
 ﻿
 @{
-    ViewData["Title"] = "DisplayBucketList";
+    ViewData["Title"] = "GetScheduledParks";
 }
+
+<h1>Scheduled Parks</h1>
+
 @model List<UserParks>
 
 
@@ -60,12 +63,6 @@
         padding: 50px;
         background-color: #ffffffff;
     }
-        font-weight: bold;
-        font-size: 75px;
-        font-family: Arial;
-        color: brown;
-        text-align: center;
- 
 </style>
 
 <h1>@ViewBag.deleteSomeParks</h1>
@@ -76,34 +73,23 @@
         <th>Park Name</th>
         <th>City</th>
         <th>State</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
         <th>Web Address</th>
-        <th>Cross off Bucket List</th>
-        <th>Remove from List</th>
-
+        <th>Mark As Visited</th>
     </tr>
     @foreach (UserParks parks in Model)
     {
-        <tr>
-            <td>@parks.ParkName</td>
-            <td>@parks.City</td>
-            <td>@parks.State</td>
-            <td>@parks.Latitude</td>
-            <td>@parks.Longitude</td>
-            <td><a href="@parks.Url">@parks.Url</a></td>
+    <tr>
+        <td>@parks.ParkName</td>
+        <td>@parks.City</td>
+        <td>@parks.State</td>
+        <td><a href="@parks.Url">@parks.Url</a></td>
 
-            <td>
-                <a href="../ParksDb/UpdateParkVisited?id=@parks.UsersParkIds">Cross Off</a>
+        <td>
+            <a href="../ParksDb/UpdateParkVisited?id=@parks.UsersParkIds">Cross Off</a>
 
-            </td>
-            <td>
-                <a href="../ParksDb/RemoveFromBucketList?id=@parks.UsersParkIds">Remove</a>
-            </td>
-
-        </tr>
+        </td>
+    </tr>
     }
 </table>
-    <a href="../User/UserPreferences">Setup Visit Plan for this List of Parks</a>
 </div>
 

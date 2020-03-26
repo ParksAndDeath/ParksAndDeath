@@ -7,8 +7,8 @@
 
 <h1>SELECT FROM THE AVAILABLE DATE BELOW FOR EACH PARK</h1>
 
-<form action="../LifeExpAPI/SummaryParksDates" method="post">
-    <table>
+
+<table>
         <tr>
             <th>Park Name</th>
             <th>Park City</th>
@@ -23,19 +23,14 @@
         <td><input type="text" name="ParkState" value=@park.State readonly /></td>
         <td>
             <select>
-                
-            
                 @foreach (DateTime date in Model.listOfDateTimes)
                 {
                     <option value=@date>@date</option>
                 }
             </select>
-            
         </td>
+        <td><a href="../LifeExpAPI/MarkAsScheduled?id=@park.UsersParkIds">Mark as Scheduled</a></td>
     </tr>
-        
     }
     </table>
-<input type="submit"  value="Submit Entries" />
-    </form>
 

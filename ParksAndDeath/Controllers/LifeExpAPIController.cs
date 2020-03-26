@@ -35,9 +35,9 @@ namespace ParksAndDeath.Controllers
         }
 
         //creates a list of available datetimes which can be chosen from and assigned to a park in the users bucketlist
-        public List<DateTime>  CreateDatetimes(DateTime StartYear, DateTime EndYear, int daysApart)
+        public List<DateTime> CreateDatetimes(DateTime StartYear, DateTime EndYear, int daysApart)
         {
-           List<DateTime> dateTimes = new List<DateTime>();
+            List<DateTime> dateTimes = new List<DateTime>();
             for (var dt = StartYear; dt < EndYear; dt = dt.AddDays(daysApart))
             {
                 dateTimes.Add(dt);
@@ -48,7 +48,7 @@ namespace ParksAndDeath.Controllers
 
         public bool EnoughDates(int numDates, int numBklItems)
         {
-            if(numDates >= numBklItems) 
+            if (numDates >= numBklItems)
             {
                 return true;
             }
@@ -58,8 +58,6 @@ namespace ParksAndDeath.Controllers
                 return false;
             }
         }
-
-
         //method to calculate remaining number of years to live if user is a drinker
         public int Drinker(Boolean drinker, int timeLeft)
         {
@@ -163,10 +161,10 @@ namespace ParksAndDeath.Controllers
 
                 //specify the base address
                 client.BaseAddress = new Uri("http://apps.who.int/gho/athena/api/GHO/");
-                
+
                 //specify the endpoint we want to use in our API call
                 var response = await client.GetAsync($"LIFE_0000000035.json?filter=COUNTRY:{found.Country};Agegroup:{ageGroup};SEX:{found.Gender};YEAR:{year}");
-                
+
                 //parse the json into the appropriate class in our models
                 var life = await response.Content.ReadAsAsync<LifeRootobject>();
 
@@ -193,7 +191,7 @@ namespace ParksAndDeath.Controllers
                 //get the number of items in the users bucketlist
                 int count = _context.UserParks.Where(x => x.CurrentUserId == id).Where(y => y.ParkVisited == false).Count();
                 List<UserParks> userParks = _context.UserParks.Where(x => x.CurrentUserId == id).Where(y => y.ParkVisited == false).ToList();
-                
+
                 //Create a list of dateTimes to assign to parks bucket list based on start and end year entered by user
                 int daysApart = (prefFound.EndYear - prefFound.StartYear).Days;
                 /*List<DateTime>*/
@@ -203,9 +201,9 @@ namespace ParksAndDeath.Controllers
                 if (EnoughDates(dates.Count, count) == true)
                 {
                     ParksSummaryWithUserPrefs newSummary = new ParksSummaryWithUserPrefs();
-                    
-                    var numYearsRemain = (int)TempData["LifeCalc"];
-                    newSummary.numYearsRemaining = numYearsRemain;
+
+                   //var numYearsRemain = (int)TempData["LifeCalc"];
+                    //newSummary.numYearsRemaining = numYearsRemain;
                     newSummary.listOfDateTimes = dateTimes;
                     newSummary.preferences = prefFound;
                     newSummary.bucketListCount = count;
@@ -233,5 +231,23 @@ namespace ParksAndDeath.Controllers
             return View(summaryInfo);
         }
 
+        public IActionResult MarkAsScheduled(int id)
+        {
+            UserParks found = _context.UserParks.Where(x => x.UsersParkIds == id).First();
+            found.ParkVisited = null;
+            _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Update(found);
+            _context.SaveChanges();
+
+            return RedirectToAction("CheckUserPrefs");
+        }
+
+        public IActionResult GetScheduledParks()
+        {
+            string Userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            List<UserParks> userParks = _context.UserParks.OrderBy(w => w.ParkName).Where(x => x.CurrentUserId == Userid).Where(y => y.ParkVisited == null).ToList();
+
+            return View("GetScheduledParks", userParks);
+        }
     }
 }
