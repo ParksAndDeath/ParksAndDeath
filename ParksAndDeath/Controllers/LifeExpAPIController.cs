@@ -47,7 +47,17 @@ namespace ParksAndDeath.Controllers
         public IActionResult CheckUserPrefs()
         {
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            try
+            {
+                _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
+            }
+            catch
+            {
+                return RedirectToAction("UserPreferences", "User");
+            }
+
             UserPreferences prefFound = _context.UserPreferences.Where(x => x.CurrentUserId == id).First();
+
 
             if (prefFound != null && DateTime.Now <= prefFound.StartYear && prefFound.EndYear > prefFound.StartYear)
             {

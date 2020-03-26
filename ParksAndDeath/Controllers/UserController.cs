@@ -130,7 +130,7 @@ namespace ParksAndDeath.Controllers
                 _context.UserPreferences.Add(userPreferences);
                 _context.SaveChanges();
 
-                return RedirectToAction("LifeExpectancyCalc", "LifeExpAPI");
+                return RedirectToAction("CheckUserPrefs", "LifeExpAPI");
             }
             return View();
         }
