@@ -50,10 +50,22 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UpdateUserInfo">Update Your Profile</a>
                             </li>
                             }
+<<<<<<< HEAD
 
+=======
+                            if (isChecked == true)
+                            {
+>>>>>>> reggie
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="LifeExpAPI" asp-action="GetScheduledParks">Parks Scheduled</a>
                             </li>
+                            }
+                            if (isChecked == true)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="LifeExpAPI" asp-action="CheckUserPrefs">Set Schedule for Bucketed Parks</a>
+                            </li>
+                            }
                         }
 
                     </ul>

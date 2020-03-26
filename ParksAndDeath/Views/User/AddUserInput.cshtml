@@ -39,6 +39,10 @@
         <input type="text" name="Name" value="" /><br />
         @Html.ValidationMessageFor(m => m.Dob)
         <label for="Dob">Date of Birth</label>
+<<<<<<< HEAD
+=======
+         <input type="date" name="Dob" value="" /><br />
+>>>>>>> reggie
         <input type="date" name="Dob" value="" /><br />
         @Html.ValidationMessageFor(m => m.Gender)
         @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
@@ -51,6 +55,7 @@
         <label for="Drinker">Drinker? (greater than 3 drinks a day)</label>
         <input type="radio" name="Drinker" value="true" /><br />
         <input type="hidden" name="Drinker" value="false" />
+        <input type ="hidden" name="lifeExpectancy" value="0"/>
         <input type="submit" value="Add User Information" />
     </form>
 </div>

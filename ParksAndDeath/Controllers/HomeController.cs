@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -26,39 +27,49 @@ namespace ParksAndDeath.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //checking if user is logged in
             if (_signInManager.IsSignedIn(User))
             {
                 //identify the user that is logged in
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                //checks if the user has their information filled in and if they do, it sends them to the parks list to fill their bucket list
-
+                
+           
+                UserInfo checkValue = _context.UserInfo.Where(x => x.OwnerId == userId).First();
+               //checks if the user has their information filled in and if they do, it sends them to the parks list to fill their bucket list
+                
+             
                 var userInfo = CheckUserInfo(_context, userId);
                 var userBl = CheckBucketList(_context, userId);
 
                 if (userBl != false && userInfo != false)
                 {
-
-
-                    return View("FullUser"); //buttons to see parks, button to see BucketList, update user info button. parks youve visited button
+                    return View("FullUser", checkValue); //buttons to see parks, button to see BucketList, update user info button. parks youve visited button
                 }
                 if (userInfo != false)
                 {
-                    return View("FullUser", "ParksDb");
-
-
+                    if (checkValue.LifeExpectancy == 0)
+                    {
+                        await LifeExpectancyCalc();
+                    }
+                    return RedirectToAction("FullUser", checkValue);
+                    //return RedirectToAction("Index", "ParksDb");
                 }
                 return RedirectToAction("AddUserInput", "User");
             }
             return View();
         }
 
+<<<<<<< HEAD
         //public async Task<IActionResult> LifeExpectancyCalc()
         //{
         //    int year = 2016;
+=======
+        public async Task LifeExpectancyCalc()
+        {
+            int year = 2016;
+>>>>>>> reggie
 
         //    string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -88,18 +99,123 @@ namespace ParksAndDeath.Controllers
 
         //        timeLeft = Drinker((bool)found.Drinker, timeLeft);
 
+<<<<<<< HEAD
         //        TempData["lifeCalc"] = timeLeft;
         //        return RedirectToAction("CheckUserPrefs");
         //    }
         //    ViewBag.message = "Oooops.... we don't have your Profile info.  Fill it out below:";
         //    return RedirectToAction("AddUserInput", "User");
         //}
+=======
+                found.LifeExpectancy = timeLeft;
+                _context.Entry(found).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Update(found);
+                await _context.SaveChangesAsync();
+            }
+        }
+>>>>>>> reggie
 
+        public string GetAgeGroup(int Age)
+        {
+            string ageGroup = "";
+            if (Age < 5)
+            {
+                ageGroup = "AGELT1";
+            }
+            if (Age >= 5 && Age <= 9)
+            {
+                ageGroup = "AGE5-9";
+            }
+            if (Age >= 10 && Age <= 14)
+            {
+                ageGroup = "AGE10-14";
+            }
+            if (Age >= 15 && Age <= 19)
+            {
+                ageGroup = "AGE15-19";
+            }
+            if (Age >= 20 && Age <= 24)
+            {
+                ageGroup = "AGE20-24";
+            }
+            if (Age >= 25 && Age <= 29)
+            {
+                ageGroup = "AGE25-29";
+            }
+            if (Age >= 30 && Age <= 34)
+            {
+                ageGroup = "AGE30-34";
+            }
+            if (Age >= 35 && Age <= 39)
+            {
+                ageGroup = "AGE35-39";
+            }
+            if (Age >= 40 && Age <= 44)
+            {
+                ageGroup = "AGE40-44";
+            }
+            if (Age >= 45 && Age <= 49)
+            {
+                ageGroup = "AGE45-49";
+            }
+            if (Age >= 50 && Age <= 54)
+            {
+                ageGroup = "AGE50-54";
+            }
+            if (Age >= 55 && Age <= 59)
+            {
+                ageGroup = "AGE55-59";
+            }
+            if (Age >= 60 && Age <= 64)
+            {
+                ageGroup = "AGE60-64";
+            }
+            if (Age >= 65 && Age <= 69)
+            {
+                ageGroup = "AGE65-69";
+            }
+            if (Age >= 70 && Age <= 74)
+            {
+                ageGroup = "AGE70-74";
+            }
+            if (Age >= 75 && Age <= 79)
+            {
+                ageGroup = "AGE75-79";
+            }
+            return (ageGroup);
+        }
+
+        public int Drinker(Boolean drinker, int timeLeft)
+        {
+            if (drinker == true)
+            {
+                timeLeft = timeLeft - 3;
+                return timeLeft;
+            }
+            else
+            {
+                return timeLeft;
+            }
+        }
+
+        public int Smoker(Boolean smoker, int timeLeft)
+        {
+            if (smoker == true)
+            {
+                timeLeft = timeLeft - 10;
+                return timeLeft;
+            }
+            else
+            {
+                return timeLeft;
+            }
+        }
         public static bool CheckUserInfo(ParksAndDeathDbContext context, string id)
         {
             try
             {
                 context.UserInfo.Where(x => x.OwnerId == id).First();
+
                 return true;
             }
             catch

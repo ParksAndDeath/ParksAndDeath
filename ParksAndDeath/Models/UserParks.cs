@@ -16,6 +16,7 @@ namespace ParksAndDeath.Models
         public bool? ParkVisited { get; set; }
         public string Url { get; set; }
         public string CurrentUserId { get; set; }
+        public DateTime? VisitScheduled { get; set; }
 
         public virtual AspNetUsers CurrentUser { get; set; }
     }
