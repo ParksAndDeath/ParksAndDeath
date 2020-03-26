@@ -45,7 +45,7 @@ namespace ParksAndDeath.Controllers
                 }
                 if (userInfo != false)
                 {
-                    return RedirectToAction("Index", "ParksDb");
+                    return View("FullUser");
 
                 }
                 return RedirectToAction("AddUserInput", "User");
