@@ -10,7 +10,7 @@
 
 <style>
     body {
-        background-image: url(https://www.elsetge.cat/myimg/f/196-1969978_national-park-desktop-wallpaper-high-resolution-free-national.jpg);
+        background-image: url(https://www.wallpaperup.com/uploads/wallpapers/2014/04/17/336002/5b8931c743ca2bfb3fa4e10bad59efbb-1000.jpg);
         background-repeat: no-repeat;
     }
 
@@ -18,25 +18,24 @@
         font-family: Cooper;
         font-weight: bold;
         font-size: 75px;
-        color: brown;
         text-align: center;
-        background-color: #0094ff;
         font-family: Cooper;
-        color: white;
+        color: #59128e;
         text-align: center;
     }
 
-    
+
     th, td {
-    text-align: left;
-    padding: 8px;
+        text-align: center;
+        padding: 8px;
     }
 
     tr:nth-child(even) {
         background-color: #f2f2f2
     }
+
     tr:nth-child(odd) {
-        background-color: #ECE5B6
+        background-color: #e9d8f2
     }
 
     th {
@@ -65,31 +64,31 @@
     }
 </style>
 
-<h1>@ViewBag.deleteSomeParks</h1>
 
-<div style="font-family:Arial">
-    <table class="table">
-    <tr>
-        <th>Park Name</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Web Address</th>
-        <th>Mark As Visited</th>
-    </tr>
-    @foreach (UserParks parks in Model)
-    {
-    <tr>
-        <td>@parks.ParkName</td>
-        <td>@parks.City</td>
-        <td>@parks.State</td>
-        <td><a href="@parks.Url">@parks.Url</a></td>
+        <h1>@ViewBag.deleteSomeParks</h1>
 
-        <td>
-            <a href="../ParksDb/UpdateParkVisited?id=@parks.UsersParkIds">Cross Off</a>
+        <div style="font-family:Arial">
+            <table class="table">
+                <tr>
+                    <th>Park Name</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Web Address</th>
+                    <th>Mark As Visited</th>
+                </tr>
+                @foreach (UserParks parks in Model)
+                {
+                    <tr>
+                        <td>@parks.ParkName</td>
+                        <td>@parks.City</td>
+                        <td>@parks.State</td>
+                        <td><a href="@parks.Url">@parks.Url</a></td>
 
-        </td>
-    </tr>
-    }
-</table>
-</div>
+                        <td>
+                            <a class="btn btn-outline-primary" href="../ParksDb/UpdateParkVisited?id=@parks.UsersParkIds">Cross Off</a>
 
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>

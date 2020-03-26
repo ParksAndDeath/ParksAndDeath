@@ -5,99 +5,85 @@
 @model List<Parks>
 
 
-    <style>
-        body {
-            background-image: url(https://images-na.ssl-images-amazon.com/images/I/71SQHJyTY%2BL._AC_SL1100_.jpg);
-        }
+<style>
+    body {
+        background-image: url(https://images-na.ssl-images-amazon.com/images/I/71SQHJyTY%2BL._AC_SL1100_.jpg);
+    }
 
-        table, th, td {
-            border: 1px solid black;
-        }
+    table, th, td {
+        border: 1px solid black;
+    }
 
-        th, td {
-            padding: 8px;
-        }
+    th, td {
+        padding: 8px;
+    }
 
-        h1{
-            
-            font-family:Cooper;
-            background-color: whitesmoke;
-        }
-        p{
-            font-family:Cooper;
-            background-color:whitesmoke;
-        }
-        .text-center {
-            display: table;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-        }
+    h1 {
+        font-family: Cooper;
+        background-color: whitesmoke;
+    }
 
-        .text-center-container {
-            display: table-cell;
-            width: 100%;
-            vertical-align: middle;
-        }
+    p {
+        font-family: Cooper;
+        background-color: whitesmoke;
+    }
 
-        .text-center-box {
-            display: inline-block;
-            padding: 50px;
-            background-color: #ffffff;
-        }
-    </style>
+    .text-center {
+        display: table;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+    .text-center-container {
+        display: table-cell;
+        width: 100%;
+        vertical-align: middle;
+    }
+
+    .text-center-box {
+        display: inline-block;
+        padding: 50px;
+        background-color: #ffffff;
+    }
+</style>
 <h1 align="center">Add a Park to Your Bucket List</h1>
 <p align="center">Choose National Parks from the list that you would like to add to your bucket list!</p>
 
 <table class="table table-hover table-light">
-        <tr>
-            <th>Park Name</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>Web Address</th>
-        </tr>
-        @foreach (Parks park in Model)
+    <tr>
+        <th>Park Name</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Web Address</th>
+    </tr>
+    @foreach (Parks park in Model)
         {
-            <tr>
-                <td>@park.FullName</td>
-                <td>@park.City</td>
-                <td>@park.States</td>
-                <td>@park.Latitude</td>
-                <td>@park.Longitude</td>
-                <td><a href="@park.Url">@park.Url</a></td>
-                <td>
-                    <form action="../ParksDb/AddParkToBuckList" method="post">
-                        <input type="hidden" name="name" value="@park.FullName" />
-                        <input type="hidden" name="city" value="@park.City" />
-                        <input type="hidden" name="state" value="@park.States" />
-                        <input type="hidden" name="latitude" value="@park.Latitude" />
-                        <input type="hidden" name="longitude" value="@park.Longitude" />
-                        <input type="hidden" name="url" value="@park.Url" />
-                        <input type="hidden" name="parkcode" value="@park.ParkCode" />
-                        <input type="submit" class="btn btn-outline-primary" value="Add to Bucket List" />
-                        <a href="../ParksDb/UpdateParkVisited?id=@park.ParksId">Cross Off</a>
-                    </form>
-                  
-                </td>
-                <td>
-                    @*<form action="../ParksDb/Index?id=@park.ParksId" method="post">
-                        <input type="hidden" name="name" value="@park.FullName" />
-                        <input type="hidden" name="city" value="@park.City" />
-                        <input type="hidden" name="state" value="@park.States" />
-                        <input type="hidden" name="latitude" value="@park.Latitude" />
-                        <input type="hidden" name="longitude" value="@park.Longitude" />
-                        <input type="hidden" name="url" value="@park.Url" />
-                        <input type="hidden" name="parkcode" value="@park.ParkCode" />
-                        
-                       <input type="submit" class="btn btn-outline-primary" value="Mark as Visited" />
-                    </form>*@
-                </td>
-            </tr>
+    <tr>
+        <td>@park.FullName</td>
+        <td>@park.City</td>
+        <td>@park.States</td>
+        <td>@park.Latitude</td>
+        <td>@park.Longitude</td>
+        <td><a href="@park.Url">@park.Url</a></td>
+        <td>
+            <form action="../ParksDb/AddParkToBuckList" method="post">
+                <input type="hidden" name="name" value="@park.FullName" />
+                <input type="hidden" name="city" value="@park.City" />
+                <input type="hidden" name="state" value="@park.States" />
+                <input type="hidden" name="latitude" value="@park.Latitude" />
+                <input type="hidden" name="longitude" value="@park.Longitude" />
+                <input type="hidden" name="url" value="@park.Url" />
+                <input type="hidden" name="parkcode" value="@park.ParkCode" />
+                <input type="submit" class="btn btn-outline-primary" value="Add to Bucket List" />
+                <a class="btn btn-outline-primary" href="../ParksDb/AddParkToBuckList?id=@park.ParksId&visited=true&name=@park.FullName&city=@park.City&state=@park.States&latitude=@park.Latitude&longitude=@park.Longitude&url=@park.Url&parkcode=@park.ParkCode">Mark as Visited</a>
+            </form>
+
+        </td>
+    
+    </tr>
 
         }
-    </table>
-
-
-    
+</table>

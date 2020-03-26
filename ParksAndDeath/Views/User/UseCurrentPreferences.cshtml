@@ -5,24 +5,19 @@
 
 @model UserPreferences
 
-<<<<<<< HEAD
+
 
 <style>
     body {
         background-image: url(https://wallpapercave.com/wp/wp2177925.jpg);
     }
 
-=======
-<style>
-body {
-        background-image: url(https://wallpapercave.com/wp/wp2177925.jpg);
-    }
->>>>>>> 44ca786bad1e9e4485ee8527988f786f9e0f0148
+
     h1 {
         font-family: Cooper;
         text-align: center;
     }
-<<<<<<< HEAD
+
 
     div{
         background-color: azure;
@@ -53,31 +48,5 @@ body {
         <input type="submit" value="Update Preferences" />
     </form>
 </div>
-=======
-    div{
-        background-color: azure;
-    }
-</style>
 
-<h1>Please Update Your Park Visit Itenerary Preferences below</h1>
 
-<form action="../User/UpdateUserPreferences" method="post">
-    <table>
-        <tr>
-            <th>Previous Start Date</th>
-            <th>Previous End Date</th>
-            <th>New Start Date</th>
-            <th>New End Date</th>
-        </tr>
-        <tr>
-            <td><input type="text" name="PreviousStart" value=@Model.StartYear.ToString() readonly /></td>
-            <td><input type="text" name=" = PreviousEnd" value=@Model.EndYear.ToString() readonly /></td>
-            <td><input type="date" name="StartYear" value="" /></td>
-            <td><input type="date" name="EndYear" value="" /></td>
-        </tr>
-    </table>
-    <input type="hidden" name="Frequency" value="@Model.Frequency">
-    <input type="submit" value="Update Preferences" />
-</form>
-
->>>>>>> 44ca786bad1e9e4485ee8527988f786f9e0f0148

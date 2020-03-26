@@ -24,6 +24,9 @@
             padding-bottom: 50px;
             padding-left: 30px;
         }
+        .MakeWide {
+            width: 100px;
+        }
     </style>
 
 @Html.ValidationSummary()
@@ -33,23 +36,15 @@
     <form action="../User/AddUserInput" method="post">
         @Html.LabelFor(m => m.Name)
         @Html.ValidationMessageFor(m => m.Name)
-       
         <input type="text" name="Name" value="" /><br />
-        
         @Html.ValidationMessageFor(m => m.Dob)
         <label for="Dob">Date of Birth</label>
-<<<<<<< HEAD
-         <input type="date" name="Dob" value="" /><br />
-        
-=======
-        Enter Your DOB: <input type="date" name="Dob" value="" /><br />
->>>>>>> 44ca786bad1e9e4485ee8527988f786f9e0f0148
+        <input type="date" name="Dob" value="" /><br />
         @Html.ValidationMessageFor(m => m.Gender)
         @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Sex))),
-    "Select Gender", new { @class = "form-control" })<br />
-        @Html.LabelFor(m => m.Country)
+    "Select Gender", new { @class = "MakeWide" })<br />
         @Html.DropDownList("Country", new SelectList(Enum.GetValues(typeof(Countries))),
-    "Country", new { @class = "form-control" })<br />
+    "Country", new { @class = "MakeWide" })<br />
         <label for="Smoker">Smoker? (greater than 10 cigarettes a day)</label>
         <input type="radio" name="Smoker" value="true" /><br />
         <input type="hidden" name="Smoker" value="false" />

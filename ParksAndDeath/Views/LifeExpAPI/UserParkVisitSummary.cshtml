@@ -5,32 +5,55 @@
 
 @model ParksSummaryWithUserPrefs
 
-<h1>SELECT FROM THE AVAILABLE DATE BELOW FOR EACH PARK</h1>
-
-
-<table>
-        <tr>
-            <th>Park Name</th>
-            <th>Park City</th>
-            <th>Park State</th>
-            <th>Specify a Date</th>
-        </tr>
-    @foreach (UserParks park in Model.bucketedParks)
-    {
-    <tr>
-        <td><input type="text" name="ParkName" value=@park.ParkName readonly /></td>
-        <td><input type="text" name="City" value=@park.City readonly /></td>
-        <td><input type="text" name="ParkState" value=@park.State readonly /></td>
-        <td>
-            <select>
-                @foreach (DateTime date in Model.listOfDateTimes)
-                {
-                    <option value=@date>@date</option>
-                }
-            </select>
-        </td>
-        <td><a href="../LifeExpAPI/MarkAsScheduled?id=@park.UsersParkIds">Mark as Scheduled</a></td>
-    </tr>
+<style>
+    body {
+        background-image: url(https://wallpapercave.com/wp/wp2490979.jpg);
     }
-    </table>
 
+    h1 {
+        background-color: #E6E6FA;
+        font-family: Cooper;
+        color: purple;
+        text-align: center;
+    }
+    a{
+        background-color: white;
+        border-radius: 5px;
+        padding: 3px 3px 3px 3px;
+    }
+</style>
+
+<h1>SELECT FROM THE AVAILABLE DATES BELOW FOR EACH PARK</h1>
+
+<div class="card-transparent" style="background-color: rgba(11, 12, 12, 0.50)">
+    <div class="card-body align-items-center d-flex justify-content-center" style="color:white">
+        <table>
+            <tr>
+                <th>Park Name</th>
+                <th>Park City</th>
+                <th>Park State</th>
+                <th>Specify a Date</th>
+            </tr>
+            @foreach (UserParks park in Model.bucketedParks)
+            {
+                <tr>
+                    <td><input type="text" name="ParkName" value=@park.ParkName readonly /></td>
+                    <td><input type="text" name="City" value=@park.City readonly /></td>
+                    <td><input type="text" name="ParkState" value=@park.State readonly /></td>
+                    <td>
+                        <select>
+                            @foreach (DateTime date in Model.listOfDateTimes)
+                            {
+                                <option value=@date>@date</option>
+                            }
+                        </select>
+                    </td>
+                    <td><a href="../LifeExpAPI/MarkAsScheduled?id=@park.UsersParkIds">Mark as Scheduled</a></td>
+                    
+                </tr>
+                
+            }
+        </table>
+
+    </div>
+</div>
